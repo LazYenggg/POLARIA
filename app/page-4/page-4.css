@@ -1,0 +1,204 @@
+.identity-page-shell {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: grid;
+  place-items: start center;
+  background: #eef4e8;
+}
+
+.identity-canvas {
+  position: relative;
+  width: min(100%, 707px);
+  aspect-ratio: 1414 / 2000;
+  container-type: inline-size;
+  flex: none;
+  overflow: hidden;
+  isolation: isolate;
+  background: #eef4e8;
+}
+
+.identity-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 1414px;
+  aspect-ratio: 1414 / 2000;
+  margin: 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.identity-background,
+.identity-classroom,
+.identity-header {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.identity-background {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -4;
+}
+
+.identity-classroom {
+  z-index: -2;
+  width: 100%;
+  height: auto;
+  left: 0;
+  bottom: 0;
+  opacity: .27;
+}
+
+.identity-header {
+  z-index: 1;
+  width: 83%;
+  height: auto;
+  top: 1.8%;
+  left: 8.5%;
+}
+
+.identity-title {
+  position: absolute;
+  z-index: 2;
+  top: 9.7%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: #079044;
+  font-family: Baloo, "Arial Rounded MT Bold", sans-serif;
+  font-size: clamp(19px, 5.1cqw, 4.9rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .01em;
+  text-align: center;
+  text-shadow: 0.14em 0.1em 0 #dce7d4;
+}
+
+.identity-fields {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  margin: 0;
+}
+
+.identity-field {
+  --field-height: clamp(64px, 13.5cqw, 96px);
+  position: absolute;
+  left: 19.6%;
+  width: 60.8%;
+  display: block;
+  color: #078c45;
+  font-family: "Times New Roman", serif;
+}
+
+.identity-field-label {
+  display: block;
+  margin-bottom: .55em;
+  font-size: clamp(.85rem, 2.6cqw, 1.6rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.identity-input-shell {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--field-height);
+  box-sizing: border-box;
+  border: 4px solid #ffb45c;
+  border-radius: 2.1em;
+  background: #fffaf3;
+}
+
+.identity-input-shell::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  z-index: 1;
+  border: 3px dashed #0b123e;
+  border-radius: 1.8em;
+  pointer-events: none;
+}
+
+.identity-input-shell input,
+.identity-input-shell textarea {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  resize: none;
+  padding: .2em .75em;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #087c3d;
+  font-family: "Times New Roman", serif;
+  font-size: clamp(.85rem, 2.6cqw, 1.6rem);
+  line-height: 1.35;
+}
+
+.identity-input-shell textarea {
+  overflow: hidden;
+  padding: calc((var(--field-height) - 1.35em) / 2) .75em;
+  line-height: 1.35;
+}
+
+.identity-input-shell input:focus,
+.identity-input-shell textarea:focus {
+  box-shadow: inset 0 0 0 3px rgba(8, 124, 61, .3);
+  border-radius: 1.2em;
+}
+
+.identity-field-group { top: 19.7%; }
+.identity-field-members { top: 37.2%; }
+.identity-field-class { top: 54.6%; }
+
+/* Page-specific positioning for shared navigation */
+.identity-nav {
+  left: 9%;
+  right: 9%;
+  bottom: 5.7%;
+  z-index: 30;
+}
+
+@media (max-width: 707px) {
+  .identity-field::after { border-width: 3px; box-shadow: inset 0 0 0 2px #fffaf3, inset 0 0 0 4px #0b123e; }
+  .identity-field-group { top: 19.5%; }
+  .identity-field-members { top: 37.1%; }
+  .identity-field-class { top: 54.7%; }
+}
+
+@media (min-width: 708px) {
+  .identity-canvas {
+    width: min(100%, 707px, calc(100dvh * 0.707));
+    height: min(100dvh, 1000px);
+    aspect-ratio: 1414 / 2000;
+  }
+}
+
+@media (max-width: 707px) {
+  .identity-canvas {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+}
+
+@media (min-width: 1415px) {
+  .identity-title { font-size: 4.9rem; }
+}
+
+@media (max-width: 520px) {
+  .identity-title { top: 10.3%; font-size: clamp(1.55rem, 7.1vw, 2.3rem); }
+  .identity-field input { padding: .15em .5em; }
+  .identity-field:focus-within input { box-shadow: inset 0 0 0 2px rgba(8, 124, 61, .3); }
+  .identity-nav { bottom: 4.2%; }
+}

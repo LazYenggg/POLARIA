@@ -1,0 +1,179 @@
+/* Page 5 - Main Menu */
+
+.menu-page-shell {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: grid;
+  place-items: start center;
+  background: #edf8e7;
+}
+
+.menu-canvas {
+  position: relative;
+  width: min(100%, 707px);
+  aspect-ratio: 1414 / 2000;
+  container-type: inline-size;
+  flex: none;
+  overflow: hidden;
+  isolation: isolate;
+  background: #edf8e7;
+}
+
+.menu-background,
+.menu-classroom,
+.menu-header {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.menu-background {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -4;
+}
+
+.menu-classroom {
+  z-index: -2;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+  opacity: 0.27;
+}
+
+.menu-header {
+  position: absolute;
+  z-index: 1;
+  top: 1.8%;
+  left: 6.5%;
+  width: 87%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.menu-title {
+  position: absolute;
+  z-index: 2;
+  top: 11.5%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: #078b45;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(26px, 7cqw, 64px);
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 2px 3px 0 #d9e8d3;
+}
+
+/* Menu Buttons Container */
+.menu-buttons {
+  position: absolute;
+  z-index: 3;
+  top: 24%;
+  left: 12%;
+  right: 12%;
+  bottom: 12%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(14px, 4cqw, 32px) clamp(18px, 5cqw, 40px);
+  align-items: center;
+  justify-items: center;
+}
+
+/* Individual Menu Button Sizing - All consistent */
+.menu-tujuan,
+.menu-aritmatika,
+.menu-geometri,
+.menu-evaluasi {
+  width: clamp(110px, 26cqw, 190px);
+  max-width: 100%;
+}
+
+/* Desktop adjustments */
+@media (min-width: 708px) {
+  .menu-canvas {
+    width: min(100%, 707px, calc(100dvh * 0.707));
+    height: min(100dvh, 1000px);
+    aspect-ratio: 1414 / 2000;
+  }
+
+  .menu-title {
+    top: 11%;
+  }
+
+  .menu-buttons {
+    top: 22%;
+    bottom: 10%;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 707px) {
+  .menu-canvas {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .menu-title {
+    top: 11%;
+    font-size: clamp(24px, 6.5cqw, 42px);
+  }
+
+  .menu-buttons {
+    top: 21%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    gap: clamp(12px, 3.5cqw, 24px) clamp(14px, 4cqw, 28px);
+  }
+
+  .menu-tujuan,
+  .menu-aritmatika,
+  .menu-geometri,
+  .menu-evaluasi {
+    width: clamp(100px, 28cqw, 160px);
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 390px) {
+  .menu-title {
+    font-size: clamp(22px, 7vw, 36px);
+  }
+
+  .menu-buttons {
+    gap: clamp(10px, 3cqw, 18px) clamp(12px, 3.5cqw, 20px);
+  }
+
+  .menu-tujuan,
+  .menu-aritmatika,
+  .menu-geometri,
+  .menu-evaluasi {
+    width: clamp(90px, 30cqw, 140px);
+  }
+}
+
+@media (max-width: 360px) {
+  .menu-buttons {
+    top: 20%;
+    gap: 8px 10px;
+  }
+
+  .menu-tujuan,
+  .menu-aritmatika,
+  .menu-geometri,
+  .menu-evaluasi {
+    width: clamp(85px, 32cqw, 120px);
+  }
+}

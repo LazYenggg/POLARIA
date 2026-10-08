@@ -1,0 +1,524 @@
+.shell {
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #edf8e7;
+  color: #3f3a2f;
+  font-family: 'Times New Roman', serif;
+}
+
+.container {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 48px;
+}
+
+.loginShell {
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+  overflow-y: auto;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(180deg, #edf8e7 0%, #e3f1dc 100%);
+  color: #3f3a2f;
+}
+
+.loginCard,
+.panel,
+.metricCard,
+.detailCard {
+  background: rgba(255, 253, 245, 0.98);
+  border: 2px solid rgba(7, 139, 69, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 14px 40px rgba(76, 65, 40, 0.12);
+}
+
+.loginCard {
+  width: min(460px, 100%);
+  padding: 34px;
+}
+
+.brand {
+  margin: 0;
+  color: #078b45;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  font-size: clamp(34px, 6vw, 54px);
+  line-height: 1;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #6b604b;
+  font-size: 18px;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 700;
+  color: #5d4227;
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 2px solid #d9ccb0;
+  border-radius: 14px;
+  background: #fff;
+  color: #322d24;
+  font: 17px/1.35 'Times New Roman', serif;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #078b45;
+  box-shadow: 0 0 0 4px rgba(7, 139, 69, 0.11);
+}
+
+.error {
+  margin: 14px 0 0;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: #fff0ed;
+  color: #a23a2a;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.muted {
+  color: #786f5d;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton,
+.linkButton {
+  min-height: 44px;
+  padding: 10px 17px;
+  border-radius: 999px;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease, box-shadow 120ms ease;
+}
+
+.primaryButton:hover,
+.secondaryButton:hover,
+.dangerButton:hover,
+.linkButton:hover {
+  transform: translateY(-1px);
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.dangerButton:disabled,
+.linkButton:disabled {
+  cursor: default;
+  opacity: 0.6;
+  transform: none;
+}
+
+.primaryButton {
+  border: 2px solid #078b45;
+  background: #078b45;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(7, 139, 69, 0.16);
+}
+
+.secondaryButton,
+.linkButton {
+  border: 2px solid #078b45;
+  background: #fff;
+  color: #078b45;
+}
+
+.dangerButton {
+  border: 2px solid #9e5b41;
+  background: #fff6f0;
+  color: #9e5b41;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.headerRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.pageTitle {
+  margin: 0;
+  color: #078b45;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(32px, 5vw, 50px);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.pageDescription {
+  margin: 7px 0 0;
+  color: #6c644f;
+  font-size: 17px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.metricCard {
+  padding: 17px 18px;
+}
+
+.metricLabel {
+  color: #7a705d;
+  font-size: 14px;
+}
+
+.metricValue {
+  margin-top: 5px;
+  color: #4e3e2a;
+  font-family: 'Baloo 2', cursive;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.panel {
+  padding: 20px;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px auto;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.tableWrap {
+  overflow: auto;
+  border: 1px solid #e0d6c0;
+  border-radius: 18px;
+}
+
+.cmsTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 780px;
+}
+
+.cmsTable th,
+.cmsTable td {
+  padding: 12px 13px;
+  border-bottom: 1px solid #e9dfc9;
+  text-align: left;
+  vertical-align: top;
+}
+
+.cmsTable th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f5efdF;
+  color: #5d4227;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+}
+
+.cmsTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.cmsTable tbody tr:hover td {
+  background: #fcfaf3;
+}
+
+.groupLink {
+  color: #078b45;
+  text-decoration: none;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.groupLink:hover {
+  text-decoration: underline;
+}
+
+.statusLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 27px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #ece8dc;
+  color: #766e5d;
+  font-family: 'Baloo 2', cursive;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.statusChip.done {
+  background: #dff4e6;
+  color: #08773d;
+}
+
+.statusChip.progress {
+  background: #fff0cf;
+  color: #876126;
+}
+
+.emptyState {
+  padding: 34px 12px;
+  text-align: center;
+  color: #716954;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.detailCard {
+  padding: 20px;
+}
+
+.detailCard.full {
+  grid-column: 1 / -1;
+}
+
+.cardTitle {
+  margin: 0 0 13px;
+  color: #078b45;
+  font-family: 'Baloo 2', cursive;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.cardSubtitle {
+  margin: 0 0 12px;
+  color: #5d4227;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  font-size: 19px;
+}
+
+.identityGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.identityValue {
+  padding: 12px;
+  border-radius: 14px;
+  background: #f7f2e6;
+}
+
+.identityValue strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #796e59;
+  font-size: 13px;
+  font-family: 'Baloo 2', cursive;
+}
+
+.answerText {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.55;
+}
+
+.answerTable {
+  min-width: 0;
+  margin-bottom: 15px;
+}
+
+.answerTable th,
+.answerTable td {
+  padding: 8px 10px;
+}
+
+.keyValue {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.5fr) minmax(0, 1.5fr);
+  gap: 8px 14px;
+  margin: 0;
+}
+
+.keyValue dt {
+  color: #786f5d;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+}
+
+.keyValue dd {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.jsonBox {
+  margin-top: 16px;
+  padding: 13px;
+  border: 1px solid #e0d6c0;
+  border-radius: 14px;
+  background: #f8f5ec;
+  overflow: auto;
+}
+
+.jsonBox pre {
+  margin: 0;
+  font: 13px/1.5 Consolas, 'Courier New', monospace;
+  white-space: pre;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(30, 51, 38, 0.35);
+}
+
+.modalCard {
+  width: min(680px, 100%);
+  padding: 24px;
+  border-radius: 24px;
+  background: #fffdf5;
+  border: 2px solid rgba(7, 139, 69, 0.18);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.2);
+}
+
+.modalTitle {
+  margin: 0;
+  color: #078b45;
+  font-family: 'Baloo 2', cursive;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.modalText {
+  margin: 8px 0 16px;
+  color: #5d553f;
+  line-height: 1.5;
+}
+
+.copyField {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-top-color: #fff;
+  border-radius: 50%;
+  vertical-align: -3px;
+  animation: spin 700ms linear infinite;
+}
+
+.loadingPage {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  color: #6b604b;
+  font-family: 'Baloo 2', cursive;
+  font-size: 24px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailCard.full {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    width: min(100% - 20px, 1180px);
+    padding-top: 16px;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .identityGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .keyValue {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .loginCard,
+  .panel,
+  .detailCard,
+  .metricCard {
+    border-radius: 18px;
+  }
+
+  .loginCard {
+    padding: 24px;
+  }
+
+  .copyField {
+    grid-template-columns: 1fr;
+  }
+}

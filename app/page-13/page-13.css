@@ -1,0 +1,631 @@
+/* =========================================================
+   PAGE 13 — EVALUASI
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE SHELL
+   ========================================================= */
+
+.page-thirteen-shell {
+  min-height: 100dvh;
+  width: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  display: grid;
+  place-items: start center;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   CANVAS
+   Reference = 1414 × 2000
+   ========================================================= */
+
+.page-thirteen-canvas {
+  position: relative;
+
+  width: min(100%, 707px);
+  aspect-ratio: 1414 / 2000;
+
+  container-type: inline-size;
+
+  flex: none;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.page-thirteen-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  z-index: -4;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   CLASSROOM DECORATION
+   ========================================================= */
+
+.page-thirteen-classroom {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: auto;
+
+  max-width: none;
+
+  display: block;
+
+  z-index: -2;
+
+  mix-blend-mode: multiply;
+  opacity: 0.22;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-thirteen-header {
+  position: absolute;
+
+  top: 1.8%;
+  left: 6.5%;
+
+  width: 87%;
+  height: auto;
+
+  display: block;
+
+  z-index: 1;
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.page-thirteen-title {
+  position: absolute;
+
+  top: 15.3%;
+  left: 0;
+
+  width: 100%;
+
+  margin: 0;
+
+  z-index: 3;
+
+  color: #079447;
+
+  font-family: 'Baloo 2', cursive;
+
+  font-size: clamp(
+    32px,
+    8.2cqw,
+    68px
+  );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  text-align: center;
+
+  text-shadow:
+    2px 3px 0 #d9e8d3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   QUESTION
+   ========================================================= */
+
+.page-thirteen-question {
+  position: absolute;
+
+  top: 26.8%;
+  left: 20%;
+
+  width: 66%;
+
+  z-index: 3;
+
+  color: #078b45;
+
+  font-family: 'Baloo 2', cursive;
+
+  font-size: clamp(
+    14px,
+    3.35cqw,
+    28px
+  );
+
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  text-align: left;
+
+  white-space: normal;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   PARCHMENT / SCROLL AREA
+   ========================================================= */
+
+.page-thirteen-scroll-area {
+  position: absolute;
+
+  top: 35.4%;
+  left: 20.2%;
+
+  width: 60%;
+
+  aspect-ratio: 490 / 327;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   PARCHMENT
+   ========================================================= */
+
+.page-thirteen-scroll-textbox {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: fill;
+
+  z-index: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.page-thirteen-answer-input {
+  position: absolute;
+
+  top: 11%;
+  left: 10%;
+
+  width: 80%;
+  height: 76%;
+
+  z-index: 2;
+
+  box-sizing: border-box;
+
+  padding: 3% 4%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  resize: none;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  color: #725b31;
+  caret-color: #725b31;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    10px,
+    2.1cqw,
+    17px
+  );
+
+  font-weight: 400;
+
+  line-height: 1.5;
+
+  white-space: pre-wrap;
+
+  overflow-wrap: break-word;
+
+  word-break: normal;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   TEXTAREA FOCUS
+   ========================================================= */
+
+.page-thirteen-answer-input:focus,
+.page-thirteen-answer-input:focus-visible {
+  outline: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   TEXTAREA SCROLLBAR
+   ========================================================= */
+
+.page-thirteen-answer-input::-webkit-scrollbar {
+  width: 5px;
+}
+
+.page-thirteen-answer-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.page-thirteen-answer-input::-webkit-scrollbar-thumb {
+  background: rgba(114, 91, 49, 0.28);
+
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   DOWNLOAD BUTTON
+   =========================================================
+
+   Diturunkan supaya tidak menabrak parchment.
+   ========================================================= */
+
+.page-thirteen-download-button {
+  position: absolute;
+
+  top: 71.5%;
+  left: 19.3%;
+
+  width: 61.4%;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  z-index: 5;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   DOWNLOAD IMAGE
+   ========================================================= */
+
+.page-thirteen-download-button img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   DOWNLOAD INTERACTION
+   ========================================================= */
+
+.page-thirteen-download-button:hover {
+  transform: translateY(-1px);
+}
+
+.page-thirteen-download-button:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.page-thirteen-download-button:focus,
+.page-thirteen-download-button:focus-visible {
+  outline: none;
+}
+
+
+/* =========================================================
+   HOME BUTTON
+   =========================================================
+
+   Hanya satu tombol navigation.
+   Diletakkan di tengah bawah.
+   ========================================================= */
+
+.page-thirteen-home-button {
+  position: absolute;
+
+  top: 91%;
+
+  left: 50%;
+
+  width: 11%;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  z-index: 6;
+
+  cursor: pointer;
+
+  transform: translateX(-50%);
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   HOME ICON IMAGE
+   ========================================================= */
+
+.page-thirteen-home-button img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   HOME INTERACTION
+   ========================================================= */
+
+.page-thirteen-home-button:hover {
+  transform:
+    translateX(-50%)
+    translateY(-1px);
+}
+
+.page-thirteen-home-button:active {
+  transform:
+    translateX(-50%)
+    translateY(1px)
+    scale(0.98);
+}
+
+.page-thirteen-home-button:focus,
+.page-thirteen-home-button:focus-visible {
+  outline: none;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 708px) {
+  .page-thirteen-canvas {
+    width: min(
+      100%,
+      707px,
+      calc(100dvh * 0.707)
+    );
+
+    height: min(100dvh, 1000px);
+
+    aspect-ratio: 1414 / 2000;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 707px) {
+  .page-thirteen-canvas {
+    width: 100%;
+
+    max-width: none;
+
+    height: 100dvh;
+
+    min-height: 0;
+
+    aspect-ratio: auto;
+  }
+
+
+  /* =======================================================
+     TITLE
+     ======================================================= */
+
+  .page-thirteen-title {
+    top: 15.3%;
+
+    font-size: clamp(
+      30px,
+      8.2cqw,
+      56px
+    );
+  }
+
+
+  /* =======================================================
+     QUESTION
+     ======================================================= */
+
+  .page-thirteen-question {
+    top: 26.8%;
+
+    left: 20%;
+
+    width: 66%;
+
+    font-size: clamp(
+      13px,
+      3.35cqw,
+      26px
+    );
+
+    line-height: 1.4;
+  }
+
+
+  /* =======================================================
+     PARCHMENT
+     ======================================================= */
+
+  .page-thirteen-scroll-area {
+    top: 35.4%;
+
+    left: 20.2%;
+
+    width: 60%;
+
+    aspect-ratio: 490 / 327;
+  }
+
+
+  /* =======================================================
+     TEXTAREA
+     ======================================================= */
+
+  .page-thirteen-answer-input {
+    top: 11%;
+
+    left: 10%;
+
+    width: 80%;
+    height: 76%;
+
+    padding: 3% 4%;
+
+    font-size: clamp(
+      9px,
+      2.1cqw,
+      15px
+    );
+
+    line-height: 1.5;
+  }
+
+
+  /* =======================================================
+     DOWNLOAD
+     ======================================================= */
+
+  .page-thirteen-download-button {
+    top: 71.5%;
+
+    left: 19.3%;
+
+    width: 61.4%;
+  }
+
+
+  /* =======================================================
+     HOME
+     ======================================================= */
+
+  .page-thirteen-home-button {
+    top: 91%;
+
+    left: 50%;
+
+    width: 11%;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .page-thirteen-title {
+    font-size: clamp(
+      28px,
+      8vw,
+      50px
+    );
+  }
+}
+
+
+@media (max-width: 360px) {
+  .page-thirteen-title {
+    top: 15%;
+
+    font-size: clamp(
+      26px,
+      8vw,
+      46px
+    );
+  }
+}

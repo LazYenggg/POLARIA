@@ -1,0 +1,475 @@
+/* =========================================================
+   PAGE 10 — BARISAN GEOMETRI
+   A. AYO MEMECAHKAN MASALAH
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE SHELL
+   ========================================================= */
+
+.page-ten-shell {
+  min-height: 100dvh;
+  width: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  display: grid;
+  place-items: start center;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   DESIGN CANVAS
+   Reference = 1414 × 2000
+   ========================================================= */
+
+.page-ten-canvas {
+  position: relative;
+
+  width: min(100%, 707px);
+  aspect-ratio: 1414 / 2000;
+
+  container-type: inline-size;
+
+  flex: none;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.page-ten-background {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: -4;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   CLASSROOM DECORATION
+   ========================================================= */
+
+.page-ten-classroom {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  max-width: none;
+
+  z-index: -2;
+
+  mix-blend-mode: multiply;
+  opacity: 0.27;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-ten-header {
+  position: absolute;
+
+  top: 1.8%;
+  left: 6.5%;
+
+  width: 87%;
+  height: auto;
+
+  max-width: none;
+
+  z-index: 1;
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.page-ten-title {
+  position: absolute;
+
+  top: 11.5%;
+  left: 0;
+
+  width: 100%;
+
+  margin: 0;
+
+  z-index: 2;
+
+  color: #078b45;
+
+  font-family: 'Baloo 2', cursive;
+
+  font-size: clamp(
+    26px,
+    7cqw,
+    64px
+  );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  text-align: center;
+
+  text-shadow: 2px 3px 0 #d9e8d3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ACTIVITY WRAPPER
+   =========================================================
+
+   Sama seperti pola Page 7:
+   artwork = 560 × 679
+   ========================================================= */
+
+.page-ten-activity {
+  position: absolute;
+
+  /*
+   * Sama dengan Page 7 versi yang sudah kita rapikan.
+   */
+  top: 21%;
+  left: 9.5%;
+
+  width: 78.6%;
+
+  aspect-ratio: 560 / 679;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   SECTION ARTWORK
+   ========================================================= */
+
+.page-ten-section-artwork {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: fill;
+
+  z-index: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   ANSWER TEXTAREA
+   =========================================================
+
+   Mengikuti pola Page 7.
+
+   Karena textarea berada DI DALAM
+   page-ten-activity, maka posisi dan
+   ukurannya ikut artwork ketika responsive.
+   ========================================================= */
+
+.page-ten-answer-input {
+  position: absolute;
+
+  /*
+   * Relative terhadap page-10-Asection.png
+   */
+  top: 71.2%;
+  left: 21.4%;
+
+  width: 64%;
+  height: 11.8%;
+
+  z-index: 3;
+
+  box-sizing: border-box;
+
+  /* Transparent overlay */
+  background: transparent;
+
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  resize: none;
+
+  /* Keep text inside the textbox */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /*
+   * Safe inner spacing
+   */
+  padding: 0.5% 1.5%;
+
+  /* Typography */
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    9px,
+    1.9cqw,
+    16px
+  );
+
+  font-weight: 400;
+
+  line-height: 1.35;
+
+  color: #078b45;
+
+  caret-color: #078b45;
+
+  white-space: pre-wrap;
+
+  overflow-wrap: break-word;
+
+  word-break: normal;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   TEXTAREA FOCUS
+   ========================================================= */
+
+.page-ten-answer-input:focus,
+.page-ten-answer-input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   =========================================================
+
+   Sengaja kosong karena:
+   "Tuliskan menurut pendapatmu!"
+   sudah ada di PNG.
+   ========================================================= */
+
+.page-ten-answer-input::placeholder {
+  color: rgba(7, 139, 69, 0.42);
+
+  font-family: 'Times New Roman', serif;
+
+  font-style: italic;
+
+  font-weight: 400;
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.page-ten-answer-input::-webkit-scrollbar {
+  width: 4px;
+}
+
+.page-ten-answer-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.page-ten-answer-input::-webkit-scrollbar-thumb {
+  background: rgba(7, 139, 69, 0.22);
+
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.page-ten-nav {
+  left: auto;
+  right: 8%;
+
+  bottom: 2.5%;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 708px) {
+  .page-ten-canvas {
+    width: min(
+      100%,
+      707px,
+      calc(100dvh * 0.707)
+    );
+
+    height: min(100dvh, 1000px);
+
+    aspect-ratio: 1414 / 2000;
+  }
+
+  .page-ten-title {
+    top: 11%;
+  }
+
+  .page-ten-nav {
+    bottom: 2.5%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 707px) {
+  .page-ten-canvas {
+    width: 100%;
+
+    max-width: none;
+
+    height: 100dvh;
+
+    min-height: 0;
+
+    aspect-ratio: auto;
+  }
+
+
+  /* Title */
+  .page-ten-title {
+    top: 11%;
+
+    font-size: clamp(
+      24px,
+      6.5cqw,
+      42px
+    );
+  }
+
+
+  /*
+   * Activity mengikuti sistem responsive
+   * yang sama dengan Page 7.
+   */
+  .page-ten-activity {
+    top: 21%;
+    left: 9.5%;
+
+    width: 78.6%;
+
+    aspect-ratio: 560 / 679;
+  }
+
+
+  /*
+   * Textarea tetap RELATIF terhadap artwork,
+   * bukan viewport.
+   */
+  .page-ten-answer-input {
+    top: 71.2%;
+    left: 21.4%;
+
+    width: 64%;
+    height: 11.8%;
+
+    padding: 0.5% 1.5%;
+
+    font-size: clamp(
+      8px,
+      1.9cqw,
+      15px
+    );
+
+    line-height: 1.35;
+  }
+
+
+  .page-ten-nav {
+    left: auto;
+    right: 8%;
+    bottom: 2%;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .page-ten-title {
+    font-size: clamp(
+      22px,
+      7vw,
+      36px
+    );
+  }
+}
+
+
+@media (max-width: 360px) {
+  .page-ten-title {
+    top: 10.5%;
+
+    font-size: clamp(
+      20px,
+      7vw,
+      32px
+    );
+  }
+}

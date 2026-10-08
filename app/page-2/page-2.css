@@ -1,0 +1,650 @@
+/* =========================================================
+   PAGE 2 — IDENTITAS PENYUSUN + DOSEN PEMBIMBING
+   ========================================================= */
+
+.author-page-shell {
+  min-height: 100dvh;
+  width: 100%;
+
+  background: #edf8e7;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   CANVAS
+   ========================================================= */
+
+.author-canvas {
+  position: relative;
+
+  width: min(100%, 70.7dvh, 707px);
+
+  height: min(100dvh, 1000px);
+
+  min-height: 568px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  background: #edf8e7;
+
+  container-type: inline-size;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.author-background {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  z-index: -3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CLASSROOM
+   ========================================================= */
+
+.author-classroom {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center bottom;
+
+  opacity: 0.16;
+
+  mix-blend-mode: multiply;
+
+  z-index: -2;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.author-header {
+  position: absolute;
+
+  top: 1.8%;
+  left: 6.5%;
+
+  width: 87%;
+  height: auto;
+
+  display: block;
+
+  z-index: 1;
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.author-title {
+  position: absolute;
+
+  top: 15.5%;
+  left: 5%;
+
+  width: 90%;
+
+  margin: 0;
+
+  color: #078b45;
+
+  font-family: 'Baloo 2', cursive;
+
+  font-size:
+    clamp(
+      24px,
+      7.2cqw,
+      56px
+    );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  text-align: center;
+
+  text-shadow:
+    2px 3px 0 #d9e8d3;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   PROFILE PANELS
+   ========================================================= */
+
+.profile-panel {
+  position: absolute;
+
+  left: 7%;
+
+  width: 86%;
+
+  z-index: 3;
+
+  container-type: inline-size;
+}
+
+
+/* =========================================================
+   PENYUSUN PANEL
+   ========================================================= */
+
+.author-panel {
+  top: 26.5%;
+
+  height: 27%;
+}
+
+
+/* =========================================================
+   DOSEN PANEL
+   ========================================================= */
+
+.lecturer-panel {
+  top: 54.5%;
+
+  height: 27%;
+}
+
+
+/* =========================================================
+   PARCHMENT
+   ========================================================= */
+
+.profile-scroll {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: fill;
+
+  pointer-events: none;
+
+  user-select: none;
+}
+
+
+/* =========================================================
+   PANEL CONTENT
+   ========================================================= */
+
+.profile-panel-content {
+  position: absolute;
+
+  inset:
+    8%
+    9%
+    8%
+    9%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 0;
+
+  color: #078b45;
+}
+
+
+/* =========================================================
+   PANEL TITLE
+   ========================================================= */
+
+.profile-panel-title {
+  margin: 0 0 2.5%;
+
+  color: #078b45;
+
+  font-family:
+    'Baloo 2',
+    cursive;
+
+  font-size:
+    clamp(
+      15px,
+      3.3cqw,
+      26px
+    );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   PHOTO + INFORMATION GRID
+
+   Kolom pertama mempunyai ukuran yang sama untuk kedua
+   panel, sehingga frame foto penyusun dan dosen sejajar.
+   ========================================================= */
+
+.profile-content-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    clamp(
+      82px,
+      20cqw,
+      126px
+    )
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  column-gap:
+    clamp(
+      24px,
+      5cqw,
+      38px
+    );
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   PHOTO FRAME
+   ========================================================= */
+
+.profile-photo-frame {
+  width: 100%;
+
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+
+  border:
+    clamp(
+      2px,
+      0.45cqw,
+      5px
+    )
+    solid
+    #d39a35;
+
+  border-radius:
+    clamp(
+      10px,
+      1.8cqw,
+      17px
+    );
+
+  background:
+    rgba(
+      255,
+      249,
+      220,
+      0.72
+    );
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PHOTO
+   ========================================================= */
+
+.profile-photo {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  object-fit: cover;
+
+  object-position: center;
+}
+
+
+/* =========================================================
+   INFORMATION
+   ========================================================= */
+
+.profile-info {
+  display: grid;
+
+  gap:
+    clamp(
+      7px,
+      1.6cqw,
+      13px
+    );
+
+  min-width: 0;
+
+  margin: 0;
+
+  font-family:
+    'Times New Roman',
+    serif;
+}
+
+
+/* =========================================================
+   FIELD
+   ========================================================= */
+
+.profile-field {
+  min-width: 0;
+
+  display: grid;
+
+  gap: 1px;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.profile-info dt {
+  margin: 0;
+
+  color: #078b45;
+
+  font-size:
+    clamp(
+      10px,
+      2.1cqw,
+      17px
+    );
+
+  font-weight: 700;
+
+  line-height: 1.05;
+}
+
+
+/* =========================================================
+   VALUE
+   ========================================================= */
+
+.profile-info dd {
+  margin: 0;
+
+  color: #186d39;
+
+  font-size:
+    clamp(
+      11px,
+      2.7cqw,
+      22px
+    );
+
+  font-weight: 700;
+
+  line-height: 1.05;
+
+  overflow-wrap: normal;
+}
+
+
+/* =========================================================
+   FORWARD NAVIGATION
+
+   PageFooter = z-index 20
+   Navigation = z-index 30
+   ========================================================= */
+
+.author-forward-nav {
+  right: 7%;
+
+  bottom: 5.5%;
+
+  z-index: 30;
+
+  width:
+    clamp(
+      64px,
+      12cqw,
+      96px
+    );
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 707px) {
+  .author-canvas {
+    width: 100%;
+
+    height: 100dvh;
+
+    min-height: 0;
+  }
+
+
+  .author-title {
+    top: 16%;
+
+    font-size:
+      clamp(
+        22px,
+        7.4cqw,
+        42px
+      );
+  }
+
+
+  .author-panel {
+    top: 26.5%;
+
+    left: 4%;
+
+    width: 92%;
+
+    height: 27%;
+  }
+
+
+  .lecturer-panel {
+    top: 54.5%;
+
+    left: 4%;
+
+    width: 92%;
+
+    height: 27%;
+  }
+
+
+  .profile-panel-content {
+    inset:
+      8%
+      7%
+      8%
+      7%;
+  }
+
+
+  .profile-panel-title {
+    margin-bottom: 2%;
+
+    font-size:
+      clamp(
+        14px,
+        4cqw,
+        24px
+      );
+  }
+
+
+  .profile-content-grid {
+    grid-template-columns:
+      clamp(
+        72px,
+        20cqw,
+        108px
+      )
+      minmax(0, 1fr);
+
+    column-gap:
+      clamp(
+        17px,
+        4.5cqw,
+        28px
+      );
+  }
+
+
+  .profile-info {
+    gap:
+      clamp(
+        5px,
+        2.2cqw,
+        11px
+      );
+  }
+
+
+  .profile-info dt {
+    font-size:
+      clamp(
+        9px,
+        3.1cqw,
+        16px
+      );
+  }
+
+
+  .profile-info dd {
+    font-size:
+      clamp(
+        10px,
+        3.6cqw,
+        19px
+      );
+  }
+
+
+  .author-forward-nav {
+    right: 7%;
+
+    bottom: 4%;
+
+    width:
+      clamp(
+        60px,
+        19cqw,
+        82px
+      );
+
+    z-index: 30;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 340px) {
+  .author-title {
+    font-size: 21px;
+  }
+
+  .author-panel {
+    top: 26%;
+
+    height: 27%;
+  }
+
+  .lecturer-panel {
+    top: 54%;
+
+    height: 27%;
+  }
+
+  .profile-panel-content {
+    inset-inline: 6%;
+  }
+
+  .profile-content-grid {
+    grid-template-columns:
+      64px
+      minmax(0, 1fr);
+
+    column-gap: 16px;
+  }
+
+  .profile-info {
+    gap: 5px;
+  }
+
+  .profile-info dt {
+    font-size: 8px;
+  }
+
+  .profile-info dd {
+    font-size: 9px;
+  }
+
+  .author-forward-nav {
+    bottom: 3%;
+
+    width: 60px;
+  }
+}

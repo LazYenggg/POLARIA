@@ -1,0 +1,983 @@
+/* =========================================================
+   PAGE 9 — BARISAN ARITMATIKA
+   C. MENEMUKAN RUMUS
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE SHELL
+   ========================================================= */
+
+.page-nine-shell {
+  min-height: 100dvh;
+  width: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  display: grid;
+  place-items: start center;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   CANVAS
+   Reference: 1414 × 2000
+   ========================================================= */
+
+.page-nine-canvas {
+  position: relative;
+
+  width: min(100%, 707px);
+  aspect-ratio: 1414 / 2000;
+
+  container-type: inline-size;
+
+  flex: none;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.page-nine-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  z-index: -4;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   CLASSROOM DECORATION
+   ========================================================= */
+
+.page-nine-classroom {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: auto;
+
+  max-width: none;
+
+  display: block;
+
+  z-index: -2;
+
+  mix-blend-mode: multiply;
+  opacity: 0.27;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-nine-header {
+  position: absolute;
+
+  top: 1.8%;
+  left: 6.5%;
+
+  width: 87%;
+  height: auto;
+
+  display: block;
+
+  z-index: 1;
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.page-nine-title {
+  position: absolute;
+
+  top: 11.5%;
+  left: 0;
+
+  width: 100%;
+
+  margin: 0;
+
+  z-index: 2;
+
+  color: #078b45;
+
+  font-family: 'Baloo 2', cursive;
+
+  font-size: clamp(
+    26px,
+    7cqw,
+    64px
+  );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  text-align: center;
+
+  text-shadow: 2px 3px 0 #d9e8d3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ACTIVITY WRAPPER
+   ========================================================= */
+
+.page-nine-activity {
+  position: absolute;
+
+  top: 19.5%;
+  left: 9.5%;
+
+  width: 78.6%;
+
+  aspect-ratio: 604 / 756;
+
+  z-index: 2;
+
+  container-type: inline-size;
+}
+
+
+/* =========================================================
+   SECTION ARTWORK
+   ========================================================= */
+
+.page-nine-section-artwork {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: fill;
+
+  z-index: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   INPUT BASE
+   ========================================================= */
+
+.page-nine-activity input {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  font-family: 'Times New Roman', serif;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   FORMULA COLORS
+   ========================================================= */
+
+.formula-variable {
+  color: #111;
+
+  font-style: italic;
+}
+
+.formula-red {
+  color: #e52d31;
+}
+
+.formula-blue {
+  color: #06add7;
+}
+
+
+/* =========================================================
+   FORMULA INPUT BASE
+   ========================================================= */
+
+.page-nine-formula-input {
+  flex: none;
+
+  height: 1.05em;
+
+  border: none;
+
+  background: transparent;
+
+  color: #06add7;
+
+  text-align: center;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: 0.92em;
+
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   FORMULA INPUT PLACEHOLDER
+   ========================================================= */
+
+.page-nine-formula-input::placeholder {
+  color: #06add7;
+
+  opacity: 1;
+
+  font-family: 'Times New Roman', serif;
+}
+
+
+/* =========================================================
+   LEFT FORMULA BLOCK
+   =========================================================
+
+   7 baris:
+   u₂
+   u₃
+   u₄
+   u₅
+   u₆
+   u₇
+   u₈
+
+   Dibuat dengan grid supaya spacing konsisten.
+   ========================================================= */
+
+.page-nine-left-formulas {
+  position: absolute;
+
+  top: 31.6%;
+  left: 5.8%;
+
+  /*
+   * Sengaja dipersempit supaya bagian akhir
+   * u7 dan u8 tidak masuk ke area L-shape.
+   */
+  width: 58.8%;
+  height: 27.8%;
+
+  z-index: 4;
+
+  display: grid;
+
+  grid-template-rows: repeat(7, 1fr);
+
+  row-gap: 0;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   LEFT FORMULA ROW
+   ========================================================= */
+
+.page-nine-formula-row {
+  min-width: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  white-space: nowrap;
+
+  color: #111;
+
+  font-family: 'Times New Roman', serif;
+
+  /*
+   * Sedikit lebih besar dan bold.
+   */
+  font-size: clamp(
+    9px,
+    3.35cqw,
+    20px
+  );
+
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   LEADING VALUE INPUT
+   u5 = ...
+   u6 = ...
+   u7 = ...
+   u8 = ...
+   ========================================================= */
+
+.formula-leading-input {
+  width: 1.65em;
+
+  margin: 0 0.03em;
+
+  color: #06add7;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   DOT / TERM INPUT
+   ========================================================= */
+
+.formula-dot-input {
+  width: 1.18em;
+
+  margin: 0 0.01em;
+
+  color: #06add7;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   INLINE GROUP
+   ========================================================= */
+
+.formula-inline-group {
+  display: inline-flex;
+
+  align-items: center;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   RIGHT FORMULA BLOCK
+   =========================================================
+
+   Diposisikan sepenuhnya di dalam L-shape.
+   Dimulai sejajar dengan u₂.
+   ========================================================= */
+
+.page-nine-right-formulas {
+  position: absolute;
+
+  top: 31.6%;
+
+  left: 67.2%;
+
+  width: 29.1%;
+
+  /*
+   * 7 baris berhenti sebelum horizontal line.
+   */
+  height: 26.2%;
+
+  z-index: 4;
+
+  display: grid;
+
+  grid-template-rows: repeat(7, 1fr);
+
+  row-gap: 0;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   RIGHT FORMULA ROW
+   ========================================================= */
+
+.page-nine-right-row {
+  min-width: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  white-space: nowrap;
+
+  color: #111;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    8px,
+    3.15cqw,
+    19px
+  );
+
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   RIGHT PARENTHESIS INPUT
+   ========================================================= */
+
+.formula-parenthesis-input {
+  width: 1.45em;
+
+  height: 1em;
+
+  margin: 0 0.01em;
+
+  color: #06add7;
+
+  text-align: center;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   GENERAL FORMULA
+   uₙ = a + b · (n − 1)
+   ========================================================= */
+
+.page-nine-general-formula {
+  position: absolute;
+
+  top: 58.5%;
+  left: 66.8%;
+
+  width: 31%;
+
+  z-index: 4;
+
+  display: flex;
+
+  align-items: center;
+
+  white-space: nowrap;
+
+  color: #111;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    9px,
+    2.75cqw,
+    17px
+  );
+
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   ATAU
+   ========================================================= */
+
+.page-nine-or {
+  position: absolute;
+
+  top: 63.8%;
+  left: 77.5%;
+
+  width: 11%;
+
+  z-index: 4;
+
+  color: #078b45;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    8px,
+    2.6cqw,
+    16px
+  );
+
+  font-weight: 700;
+
+  text-align: center;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   ALTERNATIVE FORMULA
+   uₙ = ... + (...) · ...
+   ========================================================= */
+
+.page-nine-alternative-formula {
+  position: absolute;
+
+  top: 66.8%;
+  left: 66.2%;
+
+  width: 31.5%;
+
+  z-index: 4;
+
+  display: flex;
+
+  align-items: center;
+
+  white-space: nowrap;
+
+  color: #111;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    8px,
+    2.55cqw,
+    16px
+  );
+
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   ALTERNATIVE FORMULA INPUT
+   ========================================================= */
+
+.formula-alternative-input {
+  width: 2em;
+
+  height: 1em;
+
+  color: #06add7;
+
+  text-align: center;
+
+  font-weight: 700;
+}
+
+
+.formula-alternative-middle {
+  width: 2.35em;
+}
+
+
+/* =========================================================
+   TEXTBOX INPUTS
+   =========================================================
+
+   Input berada tepat pada area titik-titik:
+   a
+   b
+   n
+   ========================================================= */
+
+.page-nine-meaning-overlay {
+  position: absolute;
+
+  z-index: 5;
+
+  height: 3.2%;
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+
+  color: #078b45;
+
+  caret-color: #078b45;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    8px,
+    2.15cqw,
+    15px
+  );
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   A
+   ========================================================= */
+
+.page-nine-meaning-a {
+  top: 70.7%;
+
+  left: 26.2%;
+
+  width: 37%;
+}
+
+
+/* =========================================================
+   B
+   ========================================================= */
+
+.page-nine-meaning-b {
+  top: 73.5%;
+
+  left: 26.2%;
+
+  width: 37%;
+}
+
+
+/* =========================================================
+   N
+   ========================================================= */
+
+.page-nine-meaning-n {
+  top: 76.3%;
+
+  left: 26.2%;
+
+  width: 37%;
+}
+
+
+/* =========================================================
+   INPUT FOCUS
+   ========================================================= */
+
+.page-nine-activity input:focus,
+.page-nine-activity input:focus-visible {
+  outline: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   INPUT VALUE BACKGROUND
+   ========================================================= */
+
+.page-nine-activity input:not(:placeholder-shown) {
+  background: rgba(255, 248, 228, 0.12);
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.page-nine-nav {
+  left: 8%;
+  right: 8%;
+
+  bottom: 2.5%;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 708px) {
+  .page-nine-canvas {
+    width: min(
+      100%,
+      707px,
+      calc(100dvh * 0.707)
+    );
+
+    height: min(100dvh, 1000px);
+
+    aspect-ratio: 1414 / 2000;
+  }
+
+  .page-nine-title {
+    top: 11%;
+  }
+
+  .page-nine-nav {
+    bottom: 2.5%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 707px) {
+  .page-nine-canvas {
+    width: 100%;
+    max-width: none;
+
+    height: 100dvh;
+
+    min-height: 0;
+
+    aspect-ratio: auto;
+  }
+
+
+  /* =======================================================
+     TITLE
+     ======================================================= */
+
+  .page-nine-title {
+    top: 11%;
+
+    font-size: clamp(
+      24px,
+      6.5cqw,
+      42px
+    );
+  }
+
+
+  /* =======================================================
+     ACTIVITY
+     ======================================================= */
+
+  .page-nine-activity {
+    top: 19.5%;
+    left: 9.5%;
+
+    width: 78.6%;
+
+    aspect-ratio: 604 / 756;
+  }
+
+
+  /* =======================================================
+     LEFT FORMULAS
+     ======================================================= */
+
+  .page-nine-left-formulas {
+    top: 31.6%;
+    left: 5.8%;
+
+    width: 58.8%;
+    height: 27.8%;
+  }
+
+
+  .page-nine-formula-row {
+    font-size: clamp(
+      9px,
+      3.35cqw,
+      19px
+    );
+
+    font-weight: 700;
+  }
+
+
+  /* =======================================================
+     RIGHT L-SHAPE
+     ======================================================= */
+
+  .page-nine-right-formulas {
+    top: 31.6%;
+
+    left: 67.2%;
+
+    width: 29.1%;
+    height: 26.2%;
+  }
+
+
+  .page-nine-right-row {
+    font-size: clamp(
+      8px,
+      3.15cqw,
+      18px
+    );
+
+    font-weight: 700;
+  }
+
+
+  /* =======================================================
+     GENERAL FORMULA
+     ======================================================= */
+
+  .page-nine-general-formula {
+    top: 58.5%;
+
+    left: 66.8%;
+
+    width: 31%;
+
+    font-size: clamp(
+      8px,
+      2.75cqw,
+      16px
+    );
+  }
+
+
+  /* =======================================================
+     ATAU
+     ======================================================= */
+
+  .page-nine-or {
+    top: 63.8%;
+
+    left: 77.5%;
+
+    font-size: clamp(
+      8px,
+      2.6cqw,
+      15px
+    );
+  }
+
+
+  /* =======================================================
+     ALTERNATIVE FORMULA
+     ======================================================= */
+
+  .page-nine-alternative-formula {
+    top: 66.8%;
+
+    left: 66.2%;
+
+    width: 31.5%;
+
+    font-size: clamp(
+      8px,
+      2.55cqw,
+      15px
+    );
+  }
+
+
+  /* =======================================================
+     TEXTBOX INPUTS
+     ======================================================= */
+
+  .page-nine-meaning-overlay {
+    font-size: clamp(
+      8px,
+      2.15cqw,
+      14px
+    );
+  }
+
+
+  .page-nine-meaning-a {
+    top: 70.7%;
+
+    left: 26.2%;
+
+    width: 37%;
+  }
+
+
+  .page-nine-meaning-b {
+    top: 73.5%;
+
+    left: 26.2%;
+
+    width: 37%;
+  }
+
+
+  .page-nine-meaning-n {
+    top: 76.3%;
+
+    left: 26.2%;
+
+    width: 37%;
+  }
+
+
+  /* =======================================================
+     NAVIGATION
+     ======================================================= */
+
+  .page-nine-nav {
+    bottom: 2%;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .page-nine-title {
+    font-size: clamp(
+      22px,
+      7vw,
+      36px
+    );
+  }
+}
+
+
+@media (max-width: 360px) {
+  .page-nine-title {
+    top: 10.5%;
+
+    font-size: clamp(
+      20px,
+      7vw,
+      32px
+    );
+  }
+}

@@ -1,0 +1,110 @@
+/* 
+ * Shared Navigation System for POLARIA E-LKPD
+ * Standardized sizing for: backward_icon.png, home_icon.png, forward.png
+ * Note: play_button.png remains separate as Page 1 primary CTA
+ */
+
+/* Design Tokens */
+:root {
+  --nav-icon-size-desktop: clamp(3.3rem, 9cqw, 8rem);
+  --nav-icon-size-mobile: clamp(3rem, 14vw, 5rem);
+  --nav-focus-outline-color: #1265a1;
+  --nav-focus-outline-width: 3px;
+  --nav-focus-outline-offset: 4px;
+  --nav-hover-scale: 1.05;
+  --nav-transition-duration: 0.15s;
+}
+
+/* Base Navigation Container */
+.page-nav-container {
+  position: absolute;
+  z-index: 30 !important;
+  display: flex;
+  align-items: center;
+}
+
+.page-nav-container a {
+  display: block;
+  width: var(--nav-icon-size-desktop);
+  aspect-ratio: 1;
+  line-height: 0;
+  transition: transform var(--nav-transition-duration) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page-nav-container a:hover {
+  transform: scale(var(--nav-hover-scale));
+}
+
+.page-nav-container a:focus-visible {
+  outline: var(--nav-focus-outline-width) solid var(--nav-focus-outline-color);
+  outline-offset: var(--nav-focus-outline-offset);
+  border-radius: 50%;
+}
+
+.page-nav-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Backward visual alignment: the PNG artwork has more transparent space. */
+.page-nav-container a:first-child img {
+  transform: scale(1.08);
+  transform-origin: center;
+}
+
+/* Dual Navigation (back, forward) - Used by Page 4 */
+.page-nav-dual {
+  justify-content: space-between;
+}
+
+/* Full Navigation (back, home, forward) - Used by Page 3 */
+.page-nav-full {
+  justify-content: space-between;
+}
+
+/* Forward-Only Variant - Used by Page 2 */
+.page-nav-forward-only {
+  position: absolute;
+  z-index: 30 !important;
+  display: block;
+  width: var(--nav-icon-size-desktop);
+  aspect-ratio: 1;
+  line-height: 0;
+  mix-blend-mode: multiply;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page-nav-forward-only img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.page-nav-forward-only:focus-visible {
+  outline: var(--nav-focus-outline-width) solid var(--nav-focus-outline-color);
+  outline-offset: 5px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 707px) {
+  .page-nav-container a {
+    width: var(--nav-icon-size-mobile);
+  }
+
+  .page-nav-forward-only {
+    width: var(--nav-icon-size-mobile);
+    aspect-ratio: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .page-nav-container a,
+  .page-nav-forward-only {
+    width: 16vw;
+    min-width: 3rem;
+  }
+}

@@ -1,0 +1,710 @@
+/* =========================================================
+   PAGE 8 — BARISAN ARITMATIKA
+   B. MENGAMATI MASALAH
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE SHELL
+   ========================================================= */
+
+.page-eight-shell {
+  min-height: 100dvh;
+  width: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  display: grid;
+  place-items: start center;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   DESIGN CANVAS
+   Reference = 1414 × 2000
+   ========================================================= */
+
+.page-eight-canvas {
+  position: relative;
+
+  width: min(100%, 707px);
+  aspect-ratio: 1414 / 2000;
+
+  container-type: inline-size;
+
+  flex: none;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.page-eight-background {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: -4;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   CLASSROOM DECORATION
+   ========================================================= */
+
+.page-eight-classroom {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  max-width: none;
+
+  z-index: -2;
+
+  mix-blend-mode: multiply;
+  opacity: 0.27;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-eight-header {
+  position: absolute;
+
+  top: 1.8%;
+  left: 6.5%;
+
+  width: 87%;
+  height: auto;
+
+  max-width: none;
+
+  z-index: 1;
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.page-eight-title {
+  position: absolute;
+
+  top: 11.5%;
+  left: 0;
+
+  width: 100%;
+
+  margin: 0;
+
+  z-index: 2;
+
+  color: #078b45;
+
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(26px, 7cqw, 64px);
+  font-weight: 800;
+
+  line-height: 1;
+
+  text-align: center;
+
+  text-shadow: 2px 3px 0 #d9e8d3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ACTIVITY WRAPPER
+   ========================================================= */
+
+.page-eight-activity {
+  position: absolute;
+
+  top: 19.5%;
+  left: 9.5%;
+
+  width: 78.6%;
+
+  aspect-ratio: 619 / 756;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   SECTION ARTWORK
+   ========================================================= */
+
+.page-eight-section-artwork {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: fill;
+
+  z-index: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+
+   Sudah disesuaikan:
+   - sedikit lebih kecil
+   - sedikit lebih turun
+   - tidak menabrak teks PNG
+   ========================================================= */
+
+.page-eight-table-wrapper {
+  position: absolute;
+
+  top: 15.5%;
+  left: 20%;
+
+  width: 55%;
+  height: 43.5%;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.page-eight-table {
+  width: 100%;
+  height: 100%;
+
+  border-collapse: collapse;
+
+  table-layout: fixed;
+
+  background: #edf4e8;
+
+  color: #111;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    8px,
+    1.75cqw,
+    15px
+  );
+
+  line-height: 1.05;
+}
+
+
+/* =========================================================
+   TABLE CELLS
+   ========================================================= */
+
+.page-eight-table th,
+.page-eight-table td {
+  border: 2px solid #1f1f1f;
+
+  padding: 0;
+
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.page-eight-table th {
+  background: #fff26a;
+
+  font-weight: 700;
+
+  height: 10%;
+}
+
+
+/* =========================================================
+   TABLE BODY
+   ========================================================= */
+
+.page-eight-table td {
+  background: #edf4e8;
+}
+
+
+/* =========================================================
+   FIXED TABLE VALUE
+   ========================================================= */
+
+.page-eight-fixed-value {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #111;
+
+  font-family: 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLE INPUT
+   ========================================================= */
+
+.page-eight-table-input {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0 3%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #111;
+
+  text-align: center;
+
+  font-family: 'Times New Roman', serif;
+  font-size: inherit;
+  font-weight: 700;
+
+  line-height: 1;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+
+/* =========================================================
+   TABLE INPUT FOCUS
+   ========================================================= */
+
+.page-eight-table-input:focus,
+.page-eight-table-input:focus-visible {
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.35);
+}
+
+
+/* =========================================================
+   TABLE PLACEHOLDER
+   ========================================================= */
+
+.page-eight-table-input::placeholder {
+  color: #111;
+
+  font-family: 'Times New Roman', serif;
+  font-size: inherit;
+  font-weight: 700;
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   SHORT INPUTS
+   ========================================================= */
+
+.page-eight-short-input {
+  position: absolute;
+
+  z-index: 4;
+
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0 1.5%;
+
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  background: transparent;
+
+  color: #006838;
+  caret-color: #006838;
+
+  text-align: center;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    8px,
+    1.85cqw,
+    16px
+  );
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   INPUT 1
+   ========================================================= */
+
+.page-eight-stage-eight-input {
+  top: 65.8%;
+  left: 63.4%;
+
+  width: 16%;
+  height: 4.5%;
+}
+
+
+/* =========================================================
+   INPUT 2
+   ========================================================= */
+
+.page-eight-difference-input {
+  top: 80.7%;
+  left: 49%;
+
+  width: 15.5%;
+  height: 4.8%;
+}
+
+
+/* =========================================================
+   INPUT WITH VALUE
+   ========================================================= */
+
+.page-eight-short-input.has-value {
+  background: #fff5e5;
+}
+
+
+/* =========================================================
+   SHORT INPUT FOCUS
+   ========================================================= */
+
+.page-eight-short-input:focus,
+.page-eight-short-input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   CHECKBOX / CHOICE
+   ========================================================= */
+
+.page-eight-choice {
+  position: absolute;
+
+  z-index: 5;
+
+  display: block;
+
+  width: 3.8%;
+  height: 3.3%;
+
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   CHECKBOX POSITIONS
+   ========================================================= */
+
+.page-eight-choice-yes {
+  left: 35.1%;
+  top: 76.3%;
+}
+
+.page-eight-choice-no {
+  left: 56.4%;
+  top: 76.3%;
+}
+
+
+/* =========================================================
+   HIDDEN NATIVE CHECKBOX
+   ========================================================= */
+
+.page-eight-choice input {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   CHECK MARK
+   ========================================================= */
+
+.page-eight-choice-check {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+
+  color: #00658b;
+
+  font-family: Arial, sans-serif;
+
+  font-size: clamp(
+    10px,
+    2.3cqw,
+    20px
+  );
+
+  font-weight: 900;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   CHECKBOX FOCUS
+   ========================================================= */
+
+.page-eight-choice input:focus-visible
+  + .page-eight-choice-check {
+  box-shadow:
+    0 0 0 2px rgba(18, 101, 161, 0.65);
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.page-eight-nav {
+  left: 8%;
+  right: 8%;
+
+  bottom: 2.5%;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 708px) {
+  .page-eight-canvas {
+    width: min(
+      100%,
+      707px,
+      calc(100dvh * 0.707)
+    );
+
+    height: min(100dvh, 1000px);
+
+    aspect-ratio: 1414 / 2000;
+  }
+
+  .page-eight-title {
+    top: 11%;
+  }
+
+  .page-eight-nav {
+    bottom: 2.5%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 707px) {
+  .page-eight-canvas {
+    width: 100%;
+    max-width: none;
+
+    height: 100dvh;
+    min-height: 0;
+
+    aspect-ratio: auto;
+  }
+
+  .page-eight-title {
+    top: 11%;
+
+    font-size: clamp(
+      24px,
+      6.5cqw,
+      42px
+    );
+  }
+
+
+  /* Activity */
+  .page-eight-activity {
+    top: 19.5%;
+    left: 9.5%;
+
+    width: 78.6%;
+
+    aspect-ratio: 619 / 756;
+  }
+
+
+  /* Table */
+  .page-eight-table-wrapper {
+    top: 15.5%;
+    left: 20%;
+
+    width: 55%;
+    height: 43.5%;
+  }
+
+
+  /* Short inputs */
+  .page-eight-short-input {
+    font-size: clamp(
+      8px,
+      1.85cqw,
+      15px
+    );
+  }
+
+  .page-eight-stage-eight-input {
+    top: 65.8%;
+    left: 63.4%;
+
+    width: 16%;
+    height: 4.5%;
+  }
+
+  .page-eight-difference-input {
+    top: 80.7%;
+    left: 49%;
+
+    width: 15.5%;
+    height: 4.8%;
+  }
+
+
+  /* Checkbox */
+  .page-eight-choice-yes {
+    left: 35.1%;
+    top: 76.3%;
+  }
+
+  .page-eight-choice-no {
+    left: 56.4%;
+    top: 76.3%;
+  }
+
+
+  /* Navigation */
+  .page-eight-nav {
+    bottom: 2%;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .page-eight-title {
+    font-size: clamp(
+      22px,
+      7vw,
+      36px
+    );
+  }
+}
+
+
+@media (max-width: 360px) {
+  .page-eight-title {
+    top: 10.5%;
+
+    font-size: clamp(
+      20px,
+      7vw,
+      32px
+    );
+  }
+}

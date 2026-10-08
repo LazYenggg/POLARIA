@@ -1,0 +1,511 @@
+/* =========================================================
+   PAGE 6 — TUJUAN PEMBELAJARAN
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE SHELL
+   ========================================================= */
+
+.learning-objective-page-shell {
+  min-height: 100dvh;
+  width: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  display: grid;
+  place-items: start center;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   DESIGN CANVAS
+   Reference = 1414 × 2000
+   ========================================================= */
+
+.learning-objective-canvas {
+  position: relative;
+
+  width: min(100%, 707px);
+
+  aspect-ratio: 1414 / 2000;
+
+  container-type: inline-size;
+
+  flex: none;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  background: #edf8e7;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.learning-objective-background {
+  position: absolute;
+
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: -4;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   CLASSROOM DECORATION
+   ========================================================= */
+
+.learning-objective-classroom {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: auto;
+
+  max-width: none;
+
+  display: block;
+
+  z-index: -2;
+
+  mix-blend-mode: multiply;
+
+  opacity: 0.27;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.learning-objective-header {
+  position: absolute;
+
+  top: 1.8%;
+  left: 6.5%;
+
+  width: 87%;
+  height: auto;
+
+  max-width: none;
+
+  display: block;
+
+  z-index: 1;
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.learning-objective-title {
+  position: absolute;
+
+  top: 11.5%;
+  left: 0;
+
+  width: 100%;
+
+  margin: 0;
+
+  z-index: 2;
+
+  color: #078b45;
+
+  font-family: 'Baloo 2', cursive;
+
+  font-size: clamp(
+    20px,
+    5.8cqw,
+    56px
+  );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  text-align: center;
+
+  text-shadow:
+    2px 3px 0 #d9e8d3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   PARCHMENT CONTAINER
+   ========================================================= */
+
+.learning-objective-card {
+  position: absolute;
+
+  z-index: 3;
+
+  top: 25%;
+
+  left: 8%;
+  right: 8%;
+
+  height: auto;
+}
+
+
+/* =========================================================
+   PARCHMENT
+   ========================================================= */
+
+.learning-objective-parchment {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   CONTENT TEXT
+   ========================================================= */
+
+.learning-objective-text {
+  position: absolute;
+
+  inset: 15% 12% 14%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 4;
+}
+
+
+/* =========================================================
+   CONTENT PARAGRAPH
+   ========================================================= */
+
+.learning-objective-text p {
+  margin: 0;
+
+  max-width: 100%;
+
+  color: #078b45;
+
+  font-family: 'Times New Roman', serif;
+
+  font-size: clamp(
+    14px,
+    3.2cqw,
+    28px
+  );
+
+  font-weight: 700;
+
+  line-height: 1.5;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   HOME BUTTON
+   =========================================================
+
+   ONLY navigation on Page 6.
+
+   Back    -> removed
+   Forward -> removed
+   Home    -> /page-5
+
+   Position requested:
+   top: 91.5%
+   ========================================================= */
+
+.learning-objective-home-button {
+  position: absolute;
+
+  top: 91.5%;
+
+  left: 50%;
+
+  width: 11%;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  z-index: 30;
+
+  cursor: pointer;
+
+  transform: translateX(-50%);
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   HOME ICON
+   ========================================================= */
+
+.learning-objective-home-button img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* =========================================================
+   HOME HOVER
+   ========================================================= */
+
+.learning-objective-home-button:hover {
+  transform:
+    translateX(-50%)
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   HOME ACTIVE
+   ========================================================= */
+
+.learning-objective-home-button:active {
+  transform:
+    translateX(-50%)
+    translateY(1px)
+    scale(0.98);
+}
+
+
+/* =========================================================
+   HOME FOCUS
+   ========================================================= */
+
+.learning-objective-home-button:focus,
+.learning-objective-home-button:focus-visible {
+  outline: none;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 708px) {
+  .learning-objective-canvas {
+    width: min(
+      100%,
+      707px,
+      calc(100dvh * 0.707)
+    );
+
+    height: min(
+      100dvh,
+      1000px
+    );
+
+    aspect-ratio: 1414 / 2000;
+  }
+
+  .learning-objective-title {
+    top: 11%;
+  }
+
+  .learning-objective-card {
+    top: 23%;
+  }
+
+  .learning-objective-home-button {
+    top: 91.5%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 707px) {
+  .learning-objective-canvas {
+    width: 100%;
+
+    max-width: none;
+
+    height: 100dvh;
+
+    min-height: 0;
+
+    aspect-ratio: auto;
+  }
+
+
+  /* =======================================================
+     TITLE
+     ======================================================= */
+
+  .learning-objective-title {
+    top: 11%;
+
+    font-size: clamp(
+      18px,
+      5.5cqw,
+      38px
+    );
+  }
+
+
+  /* =======================================================
+     PARCHMENT
+     ======================================================= */
+
+  .learning-objective-card {
+    top: 23%;
+
+    left: 6%;
+    right: 6%;
+  }
+
+
+  /* =======================================================
+     TEXT
+     ======================================================= */
+
+  .learning-objective-text {
+    inset: 14% 10% 13%;
+  }
+
+
+  .learning-objective-text p {
+    font-size: clamp(
+      13px,
+      3.5cqw,
+      22px
+    );
+
+    line-height: 1.45;
+  }
+
+
+  /* =======================================================
+     HOME
+     ======================================================= */
+
+  .learning-objective-home-button {
+    top: 91.5%;
+
+    left: 50%;
+
+    width: 11%;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .learning-objective-title {
+    font-size: clamp(
+      17px,
+      6vw,
+      32px
+    );
+  }
+
+  .learning-objective-card {
+    top: 22%;
+  }
+
+  .learning-objective-text {
+    inset: 13% 9% 12%;
+  }
+
+  .learning-objective-text p {
+    font-size: clamp(
+      12px,
+      3.8cqw,
+      20px
+    );
+
+    line-height: 1.4;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL
+   ========================================================= */
+
+@media (max-width: 360px) {
+  .learning-objective-title {
+    top: 10.5%;
+
+    font-size: clamp(
+      16px,
+      6.5vw,
+      28px
+    );
+  }
+
+  .learning-objective-card {
+    top: 21%;
+
+    left: 5%;
+    right: 5%;
+  }
+
+  .learning-objective-text p {
+    font-size: clamp(
+      11px,
+      4cqw,
+      18px
+    );
+  }
+}

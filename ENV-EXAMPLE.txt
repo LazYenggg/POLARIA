@@ -1,0 +1,19 @@
+# Client-side Firebase config
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+
+# Server-side Firebase Admin SDK config
+# Do NOT prefix these with NEXT_PUBLIC_. Never expose the private key to the browser.
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@your-project-id.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY\n-----END PRIVATE KEY-----\n"
+
+# Optional in production. In development the request origin is used automatically.
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Used only by scripts/set-admin.mjs
+POLARIA_ADMIN_EMAIL=admin@example.com
