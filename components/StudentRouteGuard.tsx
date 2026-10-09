@@ -1,7 +1,15 @@
 'use client'
 
-import { useEffect, useState, type ReactNode } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import {
+  useEffect,
+  useState,
+  type ReactNode,
+} from 'react'
+import {
+  usePathname,
+  useRouter,
+} from 'next/navigation'
+
 import {
   clearCurrentSubmissionId,
   ensureAnonymousUser,
@@ -9,14 +17,43 @@ import {
   getSubmission,
 } from '@/lib/submission'
 
+const CLEAN_PATH_TO_PAGE: Record<string, number> = {
+  '/': 1,
+  '/identitas-penyusun': 2,
+  '/petunjuk-penggunaan': 3,
+  '/identitas-kelompok': 4,
+  '/menu': 5,
+  '/tujuan-pembelajaran': 6,
+  '/aritmatika-a': 7,
+  '/aritmatika-b': 8,
+  '/aritmatika-c': 9,
+  '/geometri-a': 10,
+  '/geometri-b': 11,
+  '/geometri-c': 12,
+  '/evaluasi': 13,
+  '/rangkuman': 14,
+}
+
 function getStudentPage(pathname: string): number | null {
-  const match = pathname.match(/^\/page-(\d+)$/)
+  const normalizedPath =
+    pathname.length > 1
+      ? pathname.replace(/\/+$/, '')
+      : '/'
 
-  if (!match) return null
+  // Dukungan URL lama jika masih digunakan.
+  const legacyMatch =
+    normalizedPath.match(/^\/page-(\d+)$/)
 
-  const value = Number(match[1])
+  if (legacyMatch) {
+    const pageNumber = Number(legacyMatch[1])
 
-  return Number.isInteger(value) ? value : null
+    return Number.isInteger(pageNumber)
+      ? pageNumber
+      : null
+  }
+
+  // Dukungan URL baru yang lebih rapi.
+  return CLEAN_PATH_TO_PAGE[normalizedPath] ?? null
 }
 
 export default function StudentRouteGuard({
@@ -26,6 +63,7 @@ export default function StudentRouteGuard({
 }) {
   const pathname = usePathname()
   const router = useRouter()
+
   const [checking, setChecking] = useState(true)
   const [allowed, setAllowed] = useState(false)
 
@@ -34,10 +72,17 @@ export default function StudentRouteGuard({
 
     const pageNumber = getStudentPage(pathname)
 
-    // Hanya pages 4–14 yang memakai session submission.
-    if (pageNumber === null || pageNumber < 4 || pageNumber > 14) {
+    // Hanya halaman 4–14 yang memerlukan submission aktif.
+    // Halaman CMS juga tidak diperiksa oleh guard siswa ini;
+    // akses CMS tetap diperiksa oleh CmsSessionGuard.
+    if (
+      pageNumber === null ||
+      pageNumber < 4 ||
+      pageNumber > 14
+    ) {
       setChecking(false)
       setAllowed(true)
+
       return () => {
         active = false
       }
@@ -45,38 +90,47 @@ export default function StudentRouteGuard({
 
     const isRetryLink =
       pageNumber === 4 &&
-      new URLSearchParams(window.location.search).has('retry')
+      new URLSearchParams(
+        window.location.search
+      ).has('retry')
 
     async function checkSession() {
       try {
-        // Retry link harus dapat masuk ke Page 4 walaupun browser
-        // masih memiliki submission lama.
+        // Link tes ulang harus bisa membuka form identitas
+        // walaupun browser masih memiliki submission lama.
         if (isRetryLink) {
           if (active) {
             setAllowed(true)
             setChecking(false)
           }
+
           return
         }
 
-        const currentSubmissionId = getCurrentSubmissionId()
+        const submissionId =
+          getCurrentSubmissionId()
 
-        if (!currentSubmissionId) {
+        // Belum memiliki submission.
+        if (!submissionId) {
           if (pageNumber === 4) {
             if (active) {
               setAllowed(true)
               setChecking(false)
             }
+
             return
           }
 
-          router.replace('/page-4')
+          router.replace('/identitas-kelompok')
           return
         }
 
         await ensureAnonymousUser()
-        const submission = await getSubmission(currentSubmissionId)
 
+        const submission =
+          await getSubmission(submissionId)
+
+        // Submission aktif tidak ditemukan.
         if (!submission) {
           clearCurrentSubmissionId()
 
@@ -85,17 +139,18 @@ export default function StudentRouteGuard({
               setAllowed(true)
               setChecking(false)
             }
+
             return
           }
 
-          router.replace('/page-4')
+          router.replace('/identitas-kelompok')
           return
         }
 
+        // Identitas kelompok sudah memiliki sesi.
+        // Akses biasa ke form diarahkan ke menu.
         if (pageNumber === 4) {
-          // Identitas sudah disubmit / sesi sudah dibuat.
-          // Page 4 tidak boleh dibuka lagi lewat navigasi biasa.
-          router.replace('/page-5')
+          router.replace('/menu')
           return
         }
 
@@ -104,7 +159,11 @@ export default function StudentRouteGuard({
           setChecking(false)
         }
       } catch (error) {
-        console.error('[POLARIA Student Route Guard]', error)
+        console.error(
+          '[POLARIA Student Route Guard]',
+          error
+        )
+
         clearCurrentSubmissionId()
 
         if (pageNumber === 4) {
@@ -112,10 +171,11 @@ export default function StudentRouteGuard({
             setAllowed(true)
             setChecking(false)
           }
+
           return
         }
 
-        router.replace('/page-4')
+        router.replace('/identitas-kelompok')
       }
     }
 

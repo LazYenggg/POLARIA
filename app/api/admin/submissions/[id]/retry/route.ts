@@ -1,7 +1,12 @@
 import { randomBytes } from 'node:crypto'
 import type { DocumentReference } from 'firebase-admin/firestore'
 import { FieldValue } from 'firebase-admin/firestore'
-import { adminAuthErrorResponse, requireAdmin } from '@/lib/admin-auth'
+
+import {
+  adminAuthErrorResponse,
+  requireAdmin,
+} from '@/lib/admin-auth'
+
 import { adminDb } from '@/lib/firebase-admin'
 
 export const runtime = 'nodejs'
@@ -14,7 +19,8 @@ type RouteContext = {
 const RETRY_TTL_MS = 24 * 60 * 60 * 1000
 
 function getBaseUrl(request: Request): string {
-  const configured = process.env.NEXT_PUBLIC_APP_URL?.trim()
+  const configured =
+    process.env.NEXT_PUBLIC_APP_URL?.trim()
 
   if (configured) {
     return configured.replace(/\/$/, '')
@@ -33,8 +39,12 @@ export async function POST(
 
     if (!id || id.length > 128) {
       return Response.json(
-        { error: 'Submission ID tidak valid.' },
-        { status: 400 }
+        {
+          error: 'Submission ID tidak valid.',
+        },
+        {
+          status: 400,
+        }
       )
     }
 
@@ -45,32 +55,56 @@ export async function POST(
 
     if (!originalSnapshot.exists) {
       return Response.json(
-        { error: 'Submission tidak ditemukan.' },
-        { status: 404 }
+        {
+          error: 'Submission tidak ditemukan.',
+        },
+        {
+          status: 404,
+        }
       )
     }
 
-    const original = originalSnapshot.data() ?? {}
-    const groupName = String(original.groupName ?? '').trim()
-    const members = String(original.members ?? '').trim()
-    const className = String(original.className ?? '').trim()
+    const original =
+      originalSnapshot.data() ?? {}
+
+    const groupName =
+      String(original.groupName ?? '').trim()
+
+    const members =
+      String(original.members ?? '').trim()
+
+    const className =
+      String(original.className ?? '').trim()
 
     if (!groupName || !members || !className) {
       return Response.json(
-        { error: 'Identitas kelompok pada submission tidak lengkap.' },
-        { status: 422 }
+        {
+          error:
+            'Identitas kelompok pada submission tidak lengkap.',
+        },
+        {
+          status: 422,
+        }
       )
     }
 
     let token = ''
     let tokenRef: DocumentReference | null = null
 
-    for (let attempt = 0; attempt < 5; attempt += 1) {
-      const candidate = randomBytes(24).toString('base64url')
+    for (
+      let attempt = 0;
+      attempt < 5;
+      attempt += 1
+    ) {
+      const candidate =
+        randomBytes(24).toString('base64url')
+
       const candidateRef = adminDb
         .collection('retrySessions')
         .doc(candidate)
-      const candidateSnapshot = await candidateRef.get()
+
+      const candidateSnapshot =
+        await candidateRef.get()
 
       if (!candidateSnapshot.exists) {
         token = candidate
@@ -81,12 +115,19 @@ export async function POST(
 
     if (!tokenRef || !token) {
       return Response.json(
-        { error: 'Tidak dapat membuat kode tes ulang. Coba lagi.' },
-        { status: 500 }
+        {
+          error:
+            'Tidak dapat membuat kode tes ulang. Coba lagi.',
+        },
+        {
+          status: 500,
+        }
       )
     }
 
-    const expiresAt = new Date(Date.now() + RETRY_TTL_MS)
+    const expiresAt = new Date(
+      Date.now() + RETRY_TTL_MS
+    )
 
     await tokenRef.set({
       originalSubmissionId: id,
@@ -100,7 +141,10 @@ export async function POST(
       claimedByUid: null,
     })
 
-    const retryUrl = `${getBaseUrl(request)}/page-4?retry=${encodeURIComponent(token)}`
+    // URL baru: tidak lagi menampilkan /page-4.
+    const retryUrl =
+      `${getBaseUrl(request)}` +
+      `/identitas-kelompok?retry=${encodeURIComponent(token)}`
 
     return Response.json({
       retryToken: token,
