@@ -1,147 +1,10 @@
+
 'use client'
 
 import { useEffect, useState } from 'react'
 import PageNavigation from '@/components/PageNavigation'
 import PageFooter from '@/components/PageFooter'
 import './page-3.css'
-
-
-/* =========================================================
-   REMOVE EDGE WHITE
-   Menghapus putih yang terhubung dengan sisi luar PNG,
-   tetapi mempertahankan putih yang merupakan bagian artwork.
-   ========================================================= */
-
-function removeEdgeWhite(src: string) {
-  return new Promise<string>((resolve) => {
-    const image = new Image()
-
-    image.crossOrigin = 'anonymous'
-
-    image.onload = () => {
-      const canvas = document.createElement('canvas')
-
-      canvas.width = image.naturalWidth
-      canvas.height = image.naturalHeight
-
-      const context = canvas.getContext('2d', {
-        willReadFrequently: true,
-      })
-
-      if (!context) {
-        resolve(src)
-        return
-      }
-
-      context.drawImage(image, 0, 0)
-
-      const pixels = context.getImageData(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      )
-
-      const { data, width, height } = pixels
-
-      const visited = new Uint8Array(width * height)
-      const queue: number[] = []
-
-      const isEdgeWhite = (point: number) => {
-        const index = point * 4
-
-        return (
-          data[index] > 242 &&
-          data[index + 1] > 242 &&
-          data[index + 2] > 242 &&
-          data[index + 3] > 0
-        )
-      }
-
-      const enqueue = (x: number, y: number) => {
-        if (
-          x < 0 ||
-          y < 0 ||
-          x >= width ||
-          y >= height
-        ) {
-          return
-        }
-
-        const point = y * width + x
-
-        if (!visited[point] && isEdgeWhite(point)) {
-          visited[point] = 1
-          queue.push(point)
-        }
-      }
-
-      /* -----------------------------------------------------
-         Start dari seluruh sisi gambar
-         ----------------------------------------------------- */
-
-      for (let x = 0; x < width; x += 1) {
-        enqueue(x, 0)
-        enqueue(x, height - 1)
-      }
-
-      for (let y = 1; y < height - 1; y += 1) {
-        enqueue(0, y)
-        enqueue(width - 1, y)
-      }
-
-      /* -----------------------------------------------------
-         Flood fill
-         ----------------------------------------------------- */
-
-      for (
-        let index = 0;
-        index < queue.length;
-        index += 1
-      ) {
-        const point = queue[index]
-
-        data[point * 4 + 3] = 0
-
-        const x = point % width
-        const y = Math.floor(point / width)
-
-        if (x > 0) {
-          enqueue(x - 1, y)
-        }
-
-        if (x < width - 1) {
-          enqueue(x + 1, y)
-        }
-
-        if (y > 0) {
-          enqueue(x, y - 1)
-        }
-
-        if (y < height - 1) {
-          enqueue(x, y + 1)
-        }
-      }
-
-      context.putImageData(pixels, 0, 0)
-
-      resolve(
-        canvas.toDataURL('image/png')
-      )
-    }
-
-    image.onerror = () => {
-      resolve(src)
-    }
-
-    image.src = src
-  })
-}
-
-
-/* =========================================================
-   ASSETS
-   ========================================================= */
 
 const assets = {
   background:
@@ -153,98 +16,139 @@ const assets = {
   classroom:
     'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kids_and_teacher-4k6GLUhdp0BzqVRowUCxBPFL0ydEEk.png',
 
-  textbox:
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/scroll-textbox-gqfIYRBPlL3oSRYoZa3ttQAcZW8F1c.png',
-
-  backward:
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/backward_icon-V0I2FmyYTCT08HTIVFJHQW6DNSehWV.png',
-
-  home:
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/home_icon-cXYu3cywNAezOxlbp1bkBsbf7kYAZZ.png',
-
-  forward:
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/forward-1FNPr3VFE6ZK7Tgdv0v8tnT5EasxcQ.png',
+  guide: '/assets/page-3-guide.png',
 }
 
+/**
+ * Menghapus piksel putih yang terhubung ke tepi luar gambar.
+ * Area putih yang terisolasi di dalam ilustrasi dipertahankan.
+ */
+function removeEdgeWhite(src: string): Promise<string> {
+  return new Promise((resolve) => {
+    const image = new Image()
+    image.crossOrigin = 'anonymous'
 
-/* =========================================================
-   INSTRUCTIONS
-   ========================================================= */
+    image.onload = () => {
+      try {
+        const canvas = document.createElement('canvas')
+        canvas.width = image.naturalWidth
+        canvas.height = image.naturalHeight
 
-const instructions = [
-  <>1. Berdoalah sebelum mengerjakan</>,
+        const context = canvas.getContext('2d', {
+          willReadFrequently: true,
+        })
 
-  <>2. Tulis nama dan kelas dikolom identitas</>,
+        if (!context) {
+          resolve(src)
+          return
+        }
 
-  <>
-    3. Baca dan ikuti setiap langkah kegiatan
-    <br />
-    dengan teliti
-  </>,
+        context.drawImage(image, 0, 0)
 
-  <>
-    4. Diskusikan jawaban bersama teman dan
-    <br />
-    guru
-  </>,
+        const imageData = context.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        )
 
-  <>
-    5. Tanyakan pada guru jika ada yang belum
-    <br />
-    dipahami
-  </>,
-]
+        const { data, width, height } = imageData
+        const visited = new Uint8Array(width * height)
+        const queue = new Uint32Array(width * height)
 
+        let queueStart = 0
+        let queueEnd = 0
 
-/* =========================================================
-   BUTTON GUIDE
-   ========================================================= */
+        const isEdgeWhite = (point: number) => {
+          const index = point * 4
 
-const guideRows = [
-  {
-    key: 'backward' as const,
-    label: 'Kembali ke halaman sebelumnya',
-    alt: 'Tombol kembali',
-  },
+          const red = data[index]
+          const green = data[index + 1]
+          const blue = data[index + 2]
+          const alpha = data[index + 3]
 
-  {
-    key: 'home' as const,
-    label: 'Kembali ke menu utama',
-    alt: 'Tombol menu utama',
-  },
+          const minimum = Math.min(red, green, blue)
+          const maximum = Math.max(red, green, blue)
 
-  {
-    key: 'forward' as const,
-    label: 'Lanjut ke halaman berikutnya',
-    alt: 'Tombol lanjut',
-  },
-]
+          return (
+            alpha > 0 &&
+            minimum >= 242 &&
+            maximum - minimum <= 20
+          )
+        }
 
+        const enqueue = (x: number, y: number) => {
+          if (
+            x < 0 ||
+            y < 0 ||
+            x >= width ||
+            y >= height
+          ) {
+            return
+          }
 
-/* =========================================================
-   PAGE 3
-   ========================================================= */
+          const point = y * width + x
+
+          if (
+            visited[point] ||
+            !isEdgeWhite(point)
+          ) {
+            return
+          }
+
+          visited[point] = 1
+          queue[queueEnd] = point
+          queueEnd += 1
+        }
+
+        // Mulai dari seluruh sisi gambar.
+        for (let x = 0; x < width; x += 1) {
+          enqueue(x, 0)
+          enqueue(x, height - 1)
+        }
+
+        for (let y = 1; y < height - 1; y += 1) {
+          enqueue(0, y)
+          enqueue(width - 1, y)
+        }
+
+        // Flood fill empat arah.
+        while (queueStart < queueEnd) {
+          const point = queue[queueStart]
+          queueStart += 1
+
+          data[point * 4 + 3] = 0
+
+          const x = point % width
+          const y = Math.floor(point / width)
+
+          if (x > 0) enqueue(x - 1, y)
+          if (x < width - 1) enqueue(x + 1, y)
+          if (y > 0) enqueue(x, y - 1)
+          if (y < height - 1) enqueue(x, y + 1)
+        }
+
+        context.putImageData(imageData, 0, 0)
+
+        resolve(canvas.toDataURL('image/png'))
+      } catch (error) {
+        console.error(
+          '[POLARIA Page 3] Flood fill gagal:',
+          error
+        )
+
+        resolve(src)
+      }
+    }
+
+    image.onerror = () => resolve(src)
+    image.src = src
+  })
+}
 
 export default function PageThree() {
-  const [processedTextboxAssets, setProcessedTextboxAssets] =
-    useState({
-      background: assets.background,
-      header: assets.header,
-      classroom: assets.classroom,
-      textbox: assets.textbox,
-    })
-
-  const [processedGuideIcons, setProcessedGuideIcons] =
-    useState({
-      backward: assets.backward,
-      home: assets.home,
-      forward: assets.forward,
-    })
-
-
-  /* =======================================================
-     PROCESS ASSETS
-     ======================================================= */
+  const [processedAssets, setProcessedAssets] =
+    useState(assets)
 
   useEffect(() => {
     let active = true
@@ -253,226 +157,86 @@ export default function PageThree() {
       removeEdgeWhite(assets.background),
       removeEdgeWhite(assets.header),
       removeEdgeWhite(assets.classroom),
-      removeEdgeWhite(assets.textbox),
-      removeEdgeWhite(assets.backward),
-      removeEdgeWhite(assets.home),
-      removeEdgeWhite(assets.forward),
-    ]).then(
-      ([
-        background,
-        header,
-        classroom,
-        textbox,
-        backward,
-        home,
-        forward,
-      ]) => {
+      removeEdgeWhite(assets.guide),
+    ])
+      .then(([background, header, classroom, guide]) => {
         if (!active) return
 
-        setProcessedTextboxAssets({
+        setProcessedAssets({
           background,
           header,
           classroom,
-          textbox,
+          guide,
         })
-
-        setProcessedGuideIcons({
-          backward,
-          home,
-          forward,
-        })
-      }
-    )
+      })
+      .catch((error) => {
+        console.error(
+          '[POLARIA Page 3] Gagal memproses assets:',
+          error
+        )
+      })
 
     return () => {
       active = false
     }
   }, [])
 
-
   return (
     <main className="page-shell guide-page-shell">
-
       <section
         className="guide-canvas"
-        aria-label="Petunjuk penggunaan"
+        aria-label="Petunjuk penggunaan POLARIA"
       >
-
-        {/* =================================================
-            BACKGROUND
-           ================================================= */}
-
+        {/* Background asli POLARIA */}
         <img
           className="guide-background"
-          src={processedTextboxAssets.background}
+          src={processedAssets.background}
           alt=""
           aria-hidden="true"
           draggable={false}
         />
 
-
-        {/* =================================================
-            CLASSROOM
-           ================================================= */}
-
+        {/* Dekorasi kelas asli */}
         <img
           className="guide-classroom"
-          src={processedTextboxAssets.classroom}
+          src={processedAssets.classroom}
           alt=""
           aria-hidden="true"
           draggable={false}
         />
 
-
-        {/* =================================================
-            HEADER
-           ================================================= */}
-
+        {/* HEADER ASLI — TETAP DIPERTAHANKAN */}
         <img
           className="guide-header"
-          src={processedTextboxAssets.header}
+          src={processedAssets.header}
           alt="SMP Islam De Green Camp dan Kurikulum Merdeka"
           draggable={false}
         />
 
-
-        {/* =================================================
-            PAGE TITLE
-           ================================================= */}
-
-        <h1 className="guide-title">
-          PETUNJUK PENGUNAAN
-        </h1>
-
-
-        {/* =================================================
-            INSTRUCTIONS PANEL
-           ================================================= */}
-
-        <section
-          className="guide-panel instructions-panel"
-          aria-labelledby="instructions-title"
-        >
-
+        {/* Artwork baru, sedikit diperkecil */}
+        <div className="guide-artwork-frame">
           <img
-            src={processedTextboxAssets.textbox}
-            alt=""
-            aria-hidden="true"
+            className="guide-artwork"
+            src={processedAssets.guide}
+            alt="Petunjuk penggunaan dan panduan tombol POLARIA"
             draggable={false}
           />
+        </div>
 
-          <div className="panel-copy">
-
-            <h2
-              id="instructions-title"
-              className="sr-only"
-            >
-              Petunjuk penggunaan
-            </h2>
-
-            {instructions.map(
-              (instruction, index) => (
-                <p key={index}>
-                  {instruction}
-                </p>
-              )
-            )}
-
-          </div>
-
-        </section>
-
-
-        {/* =================================================
-            BUTTON GUIDE TITLE
-           ================================================= */}
-
-        <h2 className="guide-title guide-title-secondary">
-          PANDUAN TOMBOL
-        </h2>
-
-
-        {/* =================================================
-            BUTTON GUIDE PANEL
-           ================================================= */}
-
-        <section
-          className="guide-panel buttons-panel"
-          aria-labelledby="buttons-title"
-        >
-
-          <img
-            src={processedTextboxAssets.textbox}
-            alt=""
-            aria-hidden="true"
-            draggable={false}
-          />
-
-          <div className="panel-copy button-guide-copy">
-
-            <h3
-              id="buttons-title"
-              className="sr-only"
-            >
-              Panduan tombol
-            </h3>
-
-            {guideRows.map((row) => (
-              <div
-                className="guide-row"
-                key={row.key}
-              >
-
-                <span className="guide-icon-box">
-
-                  <img
-                    src={processedGuideIcons[row.key]}
-                    alt={row.alt}
-                    draggable={false}
-                  />
-
-                </span>
-
-                <span>
-                  {row.label}
-                </span>
-
-              </div>
-            ))}
-
-          </div>
-
-        </section>
-
-
-        {/* =================================================
-            NAVIGATION
-
-            Z-INDEX 30:
-            berada di atas PageFooter z-index 20.
-           ================================================= */}
-
+        {/* Navigasi asli — tetap berfungsi */}
         <PageNavigation
           variant="dual"
           backHref="/page-2"
           backLabel="Kembali ke halaman identitas penyusun"
           forwardHref="/page-4"
-          forwardLabel="Lanjut ke halaman berikutnya"
+          forwardLabel="Lanjut ke halaman identitas kelompok"
           className="guide-nav"
           processTransparency={true}
         />
 
-
-        {/* =================================================
-            FOOTER
-
-            PageFooter sendiri menggunakan z-index 20.
-           ================================================= */}
-
+        {/* Footer asli */}
         <PageFooter />
-
       </section>
-
     </main>
   )
 }
