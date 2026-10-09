@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, type MouseEvent } from 'react'
-import pageTenSectionArtwork from '../../public/assets/page-10-Asection.png'
 import { useRouter } from 'next/navigation'
 import PageNavigation from '@/components/PageNavigation'
 import PageFooter from '@/components/PageFooter'
@@ -68,7 +67,7 @@ function removeEdgeWhite(src: string) {
         }
       }
 
-      // Mulai dari seluruh sisi gambar
+      // Mulai dari seluruh sisi gambar.
       for (let x = 0; x < width; x += 1) {
         enqueue(x, 0)
         enqueue(x, height - 1)
@@ -79,8 +78,7 @@ function removeEdgeWhite(src: string) {
         enqueue(width - 1, y)
       }
 
-      // Flood-fill hanya area putih yang terhubung
-      // dengan bagian luar gambar.
+      // Hilangkan area putih yang terhubung dengan tepi luar.
       for (let index = 0; index < queue.length; index += 1) {
         const point = queue[index]
 
@@ -123,7 +121,9 @@ const assets = {
   background: '/assets/Background.png',
   header: '/assets/header.png',
   classroom: '/assets/kids_and_teacher.png',
-  section: pageTenSectionArtwork.src,
+
+  // Gunakan URL publik, bukan static import dari folder public.
+  section: '/assets/page-10-section-artwork.png',
 }
 
 export default function PageTen() {
@@ -131,25 +131,8 @@ export default function PageTen() {
 
   const [submitted, setSubmitted] = useState(false)
   const [loaded, setLoaded] = useState(false)
-
-  /*
-   * =========================================================
-   * STUDENT ANSWER
-   * =========================================================
-   *
-   * Tetap local React state.
-   *
-   * Belum Firebase.
-   * Belum API.
-   * Belum CMS submit.
-   */
   const [answer, setAnswer] = useState('')
 
-  /*
-   * =========================================================
-   * PROCESSED ASSETS
-   * =========================================================
-   */
   const [processedAssets, setProcessedAssets] = useState({
     background: assets.background,
     header: assets.header,
@@ -158,9 +141,8 @@ export default function PageTen() {
   })
 
   /*
-   * =========================================================
-   * REMOVE WHITE BACKGROUND
-   * =========================================================
+   * Memproses asset agar tepian putih dari PNG
+   * dapat dibuat transparan.
    */
   useEffect(() => {
     let active = true
@@ -186,10 +168,9 @@ export default function PageTen() {
     }
   }, [])
 
-
-  /* =======================================================
-     LOAD SAVED PAGE 10 ANSWER + SECTION STATUS
-     ======================================================= */
+  /*
+   * Memuat jawaban Page 10 dan status submission.
+   */
   useEffect(() => {
     let active = true
 
@@ -200,7 +181,10 @@ export default function PageTen() {
         const submissionId = getCurrentSubmissionId()
 
         if (!submissionId) {
-          setLoaded(true)
+          if (active) {
+            setLoaded(true)
+          }
+
           return
         }
 
@@ -212,11 +196,17 @@ export default function PageTen() {
           setAnswer(submission.geometry.page10.opinion)
         }
 
-        setSubmitted(Boolean(submission?.geometry.status.submitted))
+        setSubmitted(
+          Boolean(submission?.geometry.status.submitted)
+        )
+
         setLoaded(true)
       } catch (error) {
         console.error('[POLARIA Page 10 Load]', error)
-        if (active) setLoaded(true)
+
+        if (active) {
+          setLoaded(true)
+        }
       }
     }
 
@@ -227,8 +217,12 @@ export default function PageTen() {
     }
   }, [])
 
-
-  const handleForward = async (event: MouseEvent<HTMLAnchorElement>) => {
+  /*
+   * Menyimpan jawaban sebelum menuju Page 11.
+   */
+  const handleForward = async (
+    event: MouseEvent<HTMLAnchorElement>
+  ) => {
     event.preventDefault()
 
     if (!loaded) return
@@ -239,10 +233,14 @@ export default function PageTen() {
     }
 
     try {
-      await savePage10Answers({ opinion: answer })
+      await savePage10Answers({
+        opinion: answer,
+      })
+
       router.push('/page-11')
     } catch (error) {
       console.error('[POLARIA Page 10 Save]', error)
+
       window.alert(
         'Jawaban belum berhasil disimpan. Periksa koneksi internet lalu coba lagi.'
       )
@@ -255,10 +253,7 @@ export default function PageTen() {
         className="page-ten-canvas"
         aria-label="Barisan Geometri - A. Ayo Memecahkan Masalah"
       >
-
-        {/* =================================================
-            BACKGROUND
-            ================================================= */}
+        {/* BACKGROUND */}
         <img
           className="page-ten-background"
           src={processedAssets.background}
@@ -266,9 +261,7 @@ export default function PageTen() {
           aria-hidden="true"
         />
 
-        {/* =================================================
-            CLASSROOM DECORATION
-            ================================================= */}
+        {/* DEKORASI KELAS */}
         <img
           className="page-ten-classroom"
           src={processedAssets.classroom}
@@ -277,9 +270,7 @@ export default function PageTen() {
           draggable={false}
         />
 
-        {/* =================================================
-            HEADER
-            ================================================= */}
+        {/* HEADER */}
         <img
           className="page-ten-header"
           src={processedAssets.header}
@@ -287,24 +278,13 @@ export default function PageTen() {
           draggable={false}
         />
 
-        {/* =================================================
-            PAGE TITLE
-            ================================================= */}
+        {/* JUDUL HALAMAN */}
         <h1 className="page-ten-title">
           BARISAN GEOMETRI
         </h1>
 
-        {/* =================================================
-            ACTIVITY AREA
-
-            Artwork + textarea berada di wrapper yang sama
-            supaya textarea mengikuti responsive artwork.
-            ================================================= */}
+        {/* AREA AKTIVITAS */}
         <div className="page-ten-activity">
-
-          {/* =================================================
-              PAGE 10 A SECTION
-              ================================================= */}
           <img
             className="page-ten-section-artwork"
             src={processedAssets.section}
@@ -312,20 +292,13 @@ export default function PageTen() {
             draggable={false}
           />
 
-          {/* =================================================
-              STUDENT ANSWER
-
-              Posisi mengikuti pola Page 7.
-              ================================================= */}
           <textarea
             id="page-ten-answer"
             name="pageTenAnswer"
             className="page-ten-answer-input"
             value={answer}
             readOnly={submitted}
-            onChange={(event) =>
-              setAnswer(event.target.value)
-            }
+            onChange={(event) => setAnswer(event.target.value)}
             placeholder=""
             aria-label="Tuliskan pendapatmu"
             data-cms-field="pageTen.answer"
@@ -333,13 +306,7 @@ export default function PageTen() {
           />
         </div>
 
-        {/* =================================================
-            NAVIGATION
-
-            ← Page 9
-            Home → Page 5
-            → Page 11
-            ================================================= */}
+        {/* NAVIGASI */}
         <PageNavigation
           variant="forward-only"
           forwardHref="/page-11"
@@ -350,7 +317,6 @@ export default function PageTen() {
         />
 
         <PageFooter />
-
       </section>
     </main>
   )
