@@ -146,7 +146,7 @@ const author = {
   name: 'Maria Suhaila',
   nim: '2303020058',
   programStudi: 'Pendidikan Matematika',
-  photo: '/assets/fotomaria.jpeg',
+  photo: '/assets/fotomaria-page2.png',
 }
 
 const lecturer = {

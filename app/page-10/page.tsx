@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, type MouseEvent } from 'react'
+import pageTenSectionArtwork from '../../public/assets/page-10-Asection.png'
 import { useRouter } from 'next/navigation'
 import PageNavigation from '@/components/PageNavigation'
 import PageFooter from '@/components/PageFooter'
@@ -122,7 +123,7 @@ const assets = {
   background: '/assets/Background.png',
   header: '/assets/header.png',
   classroom: '/assets/kids_and_teacher.png',
-  section: '/assets/page-10-Asection.png',
+  section: pageTenSectionArtwork.src,
 }
 
 export default function PageTen() {

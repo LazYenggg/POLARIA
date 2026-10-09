@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import MenuButton from '@/components/MenuButton'
 import PageFooter from '@/components/PageFooter'
 import './page-5.css'
@@ -293,6 +294,14 @@ export default function PageFive() {
           MENU
         </h1>
 
+        {/* Kembali ke halaman Identitas Penyusun (Page 2). */}
+        <Link
+          href="/page-2"
+          className="menu-author-link"
+          aria-label="Kembali ke Identitas Penyusun"
+        >
+          ← Identitas Penyusun
+        </Link>
 
         {/* =================================================
             MENU

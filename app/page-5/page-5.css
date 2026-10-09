@@ -177,3 +177,42 @@
     width: clamp(85px, 32cqw, 120px);
   }
 }
+
+
+/* Return link to the author identity page (Page 2). */
+.menu-author-link {
+  position: absolute;
+  z-index: 30;
+  top: 17.3%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-width: calc(100% - 24px);
+  padding: 0.6cqw 2.2cqw;
+  border: 2px solid #078b45;
+  border-radius: 999px;
+  background: rgba(255, 253, 245, 0.96);
+  color: #078b45;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(11px, 2.2cqw, 16px);
+  font-weight: 800;
+  line-height: 1.15;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 0 rgba(7, 139, 69, 0.16);
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.menu-author-link:hover {
+  background: #ffffff;
+  box-shadow: 0 3px 0 rgba(7, 139, 69, 0.2);
+}
+
+.menu-author-link:focus-visible {
+  outline: 3px solid #1265a1;
+  outline-offset: 3px;
+}

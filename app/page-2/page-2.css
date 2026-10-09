@@ -358,6 +358,25 @@
 
 
 /* =========================================================
+   FOTO PENYUSUN — FRAMING LEBIH DEKAT TANPA MEMOTONG SUBJEK
+
+   Hanya berlaku untuk panel PENYUSUN di Page 2. Asset khusus
+   ini mengurangi margin putih kosong di luar subjek foto.
+   Seluruh bagian orang yang tampak pada foto sumber dipertahankan.
+   Rasio 2:3 disamakan dengan canvas foto agar seluruh foto tampil.
+   ========================================================= */
+
+.author-panel .profile-photo-frame {
+  aspect-ratio: 2 / 3;
+}
+
+.author-panel .profile-photo {
+  object-fit: contain;
+  object-position: center;
+}
+
+
+/* =========================================================
    INFORMATION
    ========================================================= */
 

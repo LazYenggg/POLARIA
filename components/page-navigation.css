@@ -49,9 +49,10 @@
   object-fit: contain;
 }
 
-/* Backward visual alignment: the PNG artwork has more transparent space. */
-.page-nav-container a:first-child img {
-  transform: scale(1.08);
+/* Backward artwork has slightly more empty space; enlarge it just a little. */
+.page-nav-dual a:first-child img,
+.page-nav-full a:first-child img {
+  transform: scale(1.12);
   transform-origin: center;
 }
 
@@ -70,10 +71,11 @@
   position: absolute;
   z-index: 30 !important;
   display: block;
-  width: var(--nav-icon-size-desktop);
+  width: clamp(3rem, 8.1cqw, 7.2rem);
   aspect-ratio: 1;
   line-height: 0;
-  mix-blend-mode: multiply;
+  /* Keep the icon's original colors; only the outer white edge is processed. */
+  mix-blend-mode: normal;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -81,7 +83,7 @@
   display: block;
   width: 100%;
   height: auto;
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
 }
 
 .page-nav-forward-only:focus-visible {
@@ -96,15 +98,19 @@
   }
 
   .page-nav-forward-only {
-    width: var(--nav-icon-size-mobile);
+    width: clamp(2.7rem, 12.6vw, 4.5rem);
     aspect-ratio: 1;
   }
 }
 
 @media (max-width: 520px) {
-  .page-nav-container a,
-  .page-nav-forward-only {
+  .page-nav-container a {
     width: 16vw;
     min-width: 3rem;
+  }
+
+  .page-nav-forward-only {
+    width: 14.4vw;
+    min-width: 2.7rem;
   }
 }
