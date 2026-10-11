@@ -1,3 +1,4 @@
+
 'use client'
 
 import Link from 'next/link'
@@ -24,6 +25,16 @@ type SummaryResponse = {
   submissions: CmsSummary[]
 }
 
+type ResetResponse = {
+  ok: boolean
+  deleted: {
+    submissions: number
+    retrySessions: number
+  }
+}
+
+const RESET_CONFIRMATION_PHRASE = 'HAPUS SEMUA DATA'
+
 function formatDate(value: string | null) {
   if (!value) return '—'
 
@@ -48,15 +59,26 @@ export default function CmsDashboardPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
+  // State konfirmasi reset.
+  const [showResetModal, setShowResetModal] = useState(false)
+  const [resetConfirmation, setResetConfirmation] = useState('')
+  const [resetting, setResetting] = useState(false)
+  const [resetError, setResetError] = useState('')
+  const [resetSuccess, setResetSuccess] = useState('')
+
   const loadSubmissions = useCallback(async () => {
     setLoading(true)
     setError('')
 
     try {
-      const result = await adminFetch<SummaryResponse>('/api/admin/submissions')
+      const result = await adminFetch<SummaryResponse>(
+        '/api/admin/submissions'
+      )
+
       setSubmissions(result.submissions)
     } catch (error) {
       console.error('[POLARIA CMS Dashboard]', error)
+
       setError(
         error instanceof Error
           ? error.message
@@ -75,14 +97,16 @@ export default function CmsDashboardPage() {
     const normalizedSearch = search.trim().toLowerCase()
 
     return submissions.filter((item) => {
-      const matchesSearch = !normalizedSearch || [
-        item.groupName,
-        item.members,
-        item.className,
-        item.id,
-      ].some((value) =>
-        String(value).toLowerCase().includes(normalizedSearch)
-      )
+      const matchesSearch =
+        !normalizedSearch ||
+        [
+          item.groupName,
+          item.members,
+          item.className,
+          item.id,
+        ].some((value) =>
+          String(value).toLowerCase().includes(normalizedSearch)
+        )
 
       if (!matchesSearch) return false
 
@@ -97,6 +121,72 @@ export default function CmsDashboardPage() {
 
   const handleLogout = async () => {
     await signOut(auth)
+  }
+
+  const openResetModal = () => {
+    setResetConfirmation('')
+    setResetError('')
+    setShowResetModal(true)
+  }
+
+  const closeResetModal = () => {
+    if (resetting) return
+
+    setShowResetModal(false)
+    setResetConfirmation('')
+    setResetError('')
+  }
+
+  const handleResetAllData = async () => {
+    if (resetting) return
+
+    const normalizedConfirmation =
+      resetConfirmation.trim().toUpperCase()
+
+    if (normalizedConfirmation !== RESET_CONFIRMATION_PHRASE) {
+      setResetError(
+        `Ketik "${RESET_CONFIRMATION_PHRASE}" dengan benar untuk melanjutkan.`
+      )
+      return
+    }
+
+    setResetting(true)
+    setResetError('')
+    setResetSuccess('')
+    setError('')
+
+    try {
+      const result = await adminFetch<ResetResponse>(
+        '/api/admin/submissions/reset',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            confirmation: normalizedConfirmation,
+          }),
+        }
+      )
+
+      // Bersihkan tampilan dashboard setelah server berhasil.
+      setSubmissions([])
+      setSearch('')
+      setFilter('all')
+      setShowResetModal(false)
+      setResetConfirmation('')
+
+      setResetSuccess(
+        `Reset berhasil. ${result.deleted.submissions} submission kelompok dan ${result.deleted.retrySessions} token tes ulang telah dihapus.`
+      )
+    } catch (error) {
+      console.error('[POLARIA CMS Reset Data]', error)
+
+      setResetError(
+        error instanceof Error
+          ? error.message
+          : 'Reset data gagal. Silakan coba lagi.'
+      )
+    } finally {
+      setResetting(false)
+    }
   }
 
   return (
@@ -115,36 +205,74 @@ export default function CmsDashboardPage() {
               className={styles.secondaryButton}
               type="button"
               onClick={() => void loadSubmissions()}
-              disabled={loading}
+              disabled={loading || resetting}
             >
               {loading ? 'Memuat…' : 'Refresh'}
             </button>
+
+            <button
+              className={styles.dangerButton}
+              type="button"
+              onClick={openResetModal}
+              disabled={loading || resetting}
+            >
+              Reset Semua Data
+            </button>
+
             <button
               className={styles.dangerButton}
               type="button"
               onClick={() => void handleLogout()}
+              disabled={resetting}
             >
               Keluar
             </button>
           </div>
         </header>
 
-        <section className={styles.metrics} aria-label="Ringkasan submission">
+        {resetSuccess && (
+          <p
+            role="status"
+            style={{
+              margin: '0 0 18px',
+              padding: '14px 17px',
+              border: '1px solid #b6dfc0',
+              borderRadius: 14,
+              background: '#e5f6e9',
+              color: '#08773d',
+              lineHeight: 1.5,
+            }}
+          >
+            {resetSuccess}
+          </p>
+        )}
+
+        <section
+          className={styles.metrics}
+          aria-label="Ringkasan submission"
+        >
           <div className={styles.metricCard}>
             <div className={styles.metricLabel}>Total Submission</div>
             <div className={styles.metricValue}>{submissions.length}</div>
           </div>
+
           <div className={styles.metricCard}>
             <div className={styles.metricLabel}>Lengkap</div>
             <div className={styles.metricValue}>{completeCount}</div>
           </div>
+
           <div className={styles.metricCard}>
             <div className={styles.metricLabel}>Masih Berproses</div>
-            <div className={styles.metricValue}>{submissions.length - completeCount}</div>
+            <div className={styles.metricValue}>
+              {submissions.length - completeCount}
+            </div>
           </div>
+
           <div className={styles.metricCard}>
             <div className={styles.metricLabel}>Ditampilkan</div>
-            <div className={styles.metricValue}>{filteredSubmissions.length}</div>
+            <div className={styles.metricValue}>
+              {filteredSubmissions.length}
+            </div>
           </div>
         </section>
 
@@ -178,6 +306,7 @@ export default function CmsDashboardPage() {
                 setSearch('')
                 setFilter('all')
               }}
+              disabled={resetting}
             >
               Reset Filter
             </button>
@@ -190,7 +319,9 @@ export default function CmsDashboardPage() {
           )}
 
           {loading && submissions.length === 0 ? (
-            <div className={styles.emptyState}>Memuat submission…</div>
+            <div className={styles.emptyState}>
+              Memuat submission…
+            </div>
           ) : filteredSubmissions.length === 0 ? (
             <div className={styles.emptyState}>
               Belum ada submission yang cocok dengan filter saat ini.
@@ -207,6 +338,7 @@ export default function CmsDashboardPage() {
                     <th>Aksi</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {filteredSubmissions.map((item) => (
                     <tr key={item.id}>
@@ -217,31 +349,50 @@ export default function CmsDashboardPage() {
                         >
                           {item.groupName || 'Tanpa nama'}
                         </Link>
+
                         <div className={styles.muted}>
                           {item.members || '—'}
                         </div>
                       </td>
+
                       <td>{item.className || '—'}</td>
+
                       <td>
                         <div className={styles.statusLine}>
                           <span
-                            className={`${styles.statusChip} ${item.arithmeticSubmitted ? styles.done : styles.progress}`}
+                            className={`${styles.statusChip} ${
+                              item.arithmeticSubmitted
+                                ? styles.done
+                                : styles.progress
+                            }`}
                           >
                             A {item.arithmeticSubmitted ? '✓' : '…'}
                           </span>
+
                           <span
-                            className={`${styles.statusChip} ${item.geometrySubmitted ? styles.done : styles.progress}`}
+                            className={`${styles.statusChip} ${
+                              item.geometrySubmitted
+                                ? styles.done
+                                : styles.progress
+                            }`}
                           >
                             G {item.geometrySubmitted ? '✓' : '…'}
                           </span>
+
                           <span
-                            className={`${styles.statusChip} ${item.evaluationSubmitted ? styles.done : styles.progress}`}
+                            className={`${styles.statusChip} ${
+                              item.evaluationSubmitted
+                                ? styles.done
+                                : styles.progress
+                            }`}
                           >
                             E {item.evaluationSubmitted ? '✓' : '…'}
                           </span>
                         </div>
                       </td>
+
                       <td>{formatDate(item.updatedAt)}</td>
+
                       <td>
                         <Link
                           className={styles.linkButton}
@@ -258,6 +409,113 @@ export default function CmsDashboardPage() {
           )}
         </section>
       </div>
+
+      {/* Modal konfirmasi penghapusan seluruh data kelompok */}
+      {showResetModal && (
+        <div className={styles.modalOverlay}>
+          <section
+            className={styles.modalCard}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="reset-data-title"
+            aria-describedby="reset-data-description"
+          >
+            <h2
+              id="reset-data-title"
+              className={styles.modalTitle}
+              style={{ color: '#a23a2a' }}
+            >
+              Hapus Semua Data POLARIA?
+            </h2>
+
+            <p
+              id="reset-data-description"
+              className={styles.modalText}
+            >
+              Tindakan ini akan menghapus seluruh data submission
+              kelompok beserta jawaban Page 7–13 dan semua token
+              tes ulang yang tersimpan di Firestore.
+            </p>
+
+            <div
+              style={{
+                margin: '16px 0',
+                padding: 14,
+                borderRadius: 14,
+                border: '1px solid #e9b4a9',
+                background: '#fff0ed',
+                color: '#8e3025',
+                lineHeight: 1.55,
+              }}
+            >
+              <strong>Peringatan:</strong> penghapusan ini permanen
+              dan tidak menyediakan fitur pemulihan. Pastikan semua
+              sesi pengujian sudah dihentikan sebelum melanjutkan.
+            </div>
+
+            <label
+              htmlFor="reset-confirmation"
+              className={styles.field}
+            >
+              Untuk mengaktifkan tombol penghapusan, ketik:
+              <strong>{RESET_CONFIRMATION_PHRASE}</strong>
+
+              <input
+                id="reset-confirmation"
+                className={styles.input}
+                value={resetConfirmation}
+                onChange={(event) => {
+                  setResetConfirmation(event.target.value)
+                  setResetError('')
+                }}
+                placeholder="Ketik frasa konfirmasi"
+                autoComplete="off"
+                autoCapitalize="characters"
+                spellCheck={false}
+                disabled={resetting}
+              />
+            </label>
+
+            {resetError && (
+              <p className={styles.error} role="alert">
+                {resetError}
+              </p>
+            )}
+
+            <div
+              className={styles.buttonRow}
+              style={{
+                justifyContent: 'flex-end',
+                marginTop: 22,
+              }}
+            >
+              <button
+                className={styles.secondaryButton}
+                type="button"
+                onClick={closeResetModal}
+                disabled={resetting}
+              >
+                Batal
+              </button>
+
+              <button
+                className={styles.dangerButton}
+                type="button"
+                onClick={() => void handleResetAllData()}
+                disabled={
+                  resetting ||
+                  resetConfirmation.trim().toUpperCase() !==
+                    RESET_CONFIRMATION_PHRASE
+                }
+              >
+                {resetting
+                  ? 'Menghapus data…'
+                  : 'Hapus Semua Data Permanen'}
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   )
 }
